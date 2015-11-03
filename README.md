@@ -31,7 +31,7 @@ NOTE: These instructs are to be used on "clean" server installations.  Use with 
 
 Clone this repo somewhere to your server
 
-	git clone https://github.com/brichbourg/??.git
+	git clone https://github.com/brichbourg/Multi-Tier-App-Demo.git
 
 Install Apache2
 
