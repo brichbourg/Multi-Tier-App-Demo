@@ -1,0 +1,55 @@
+
+<Content-type: text/html\n\n>
+
+<html>
+<head>
+<title>Brantley\'s Python Web Script </title>
+</head>
+
+<body>
+
+<center>
+<IMG SRC="logo.jpg"></IMG>
+<h1> Multi-Tier Application Example </h1>
+<h3> Enter Data </h3>
+</center>
+
+<center>
+<table border="10" bgcolor="#71bf45">
+
+<tr>
+<td><br><center><form action="index.html"><input type="submit" value="Main Menu"></center></form></td>
+</tr>
+</table>
+</center>
+
+<center>
+
+<br><br>
+
+<!-- Start of the entry form -->
+<!-- <table border="0"> -->
+<table>
+<tr>
+<td>
+<form action="commitdb.py" method="POST" id="usrform">
+  <b>Name:</b><br>
+  <input type="text" name="name" value="Mickey Mouse">
+  <br><br>
+  <b>Notes:</b><br>
+  <textarea rows="6" cols="50" name="notes" form="usrform">Hot Dog, Hot Dog, Hot Diggy Dog!</textarea>
+  <br><br>
+  <b>Number of records to create:</b><br>
+  <input type="number" name="count" min="1" max="1000" value="1">
+  <br><br>
+  <input type="submit" value="Submit">
+</form>
+</td>
+</tr>
+</table>
+</center>
+
+</body>
+
+</html>
+
