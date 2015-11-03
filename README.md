@@ -10,7 +10,7 @@ I am a network/systems engineer that is trying to teach myself Python programmin
 
 ##Information
 
-This is a VERY basic Python based web application I created to be used to demo with SDN environments (Cisco ACI, VMWare NSX, etc).  This application uses the web server Apache2 and MySQL as the backend database to function.  The idea is to run Apache2 with the python scripts and MySQL on separate servers and then manipulate network policies between Web/App Server and DB server to break to application.
+This is a VERY basic Python based web application I created to be used to demo with SDN environments (Cisco ACI, VMWare NSX, etc).  This application uses the web server Apache2 and MySQL as the backend database to function.  The idea is to run Apache2 with the python scripts and MySQL on separate servers and then manipulate network policies between Web/App Server and DB server the break to application.
 
 The functions created allow a user to view contents, add records to, and erase the contents of a MySQL database. 
 
@@ -23,14 +23,15 @@ Here are the versions of the systems I used when creating it:
 * Apache 2.4.7 
 * MySQL Ver 14.14 Distrib 5.5.46
 
-NOTE: These instructs are to be used on "clean" server installations.  Use with existing Apache2 and MySQL systems as your own risk!!!
+NOTE: These instructions are to be used on "clean" server installations.  Use with existing Apache2 and MySQL systems as your own risk!!!
 
 ## Web Server Build
 
-###Software Installaton
+###Software Installation
 
 Clone this repo somewhere to your server
 
+	sudo apt-get install git
 	git clone https://github.com/brichbourg/Multi-Tier-App-Demo.git
 
 Install Apache2
