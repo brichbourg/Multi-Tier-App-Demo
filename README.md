@@ -52,16 +52,17 @@ Install Python Packages
 	sudo a2enmod mpm_prefork cgi
 	sudo service apache2 restart
 
-Edit the the following file with vi or nano (or whatever editor you like)
+Edit the `/etc/apache2/sites-enabled/000-default.conf` file with vi or nano (or whatever editor you like)
 
-	/etc/apache2/sites-enabled/000-default.conf
+Insert the following changes to 000-default.conf under `<VirtualHost *:80>`
 
-Insert the following changes to 000-default.conf
-
-* Options +ExecCGI
-* AddHandler cgi-script .py
+	<Directory /var/www/html>
+	        Options +ExecCGI
+	        DirectoryIndex index.html
+	</Directory>
+	AddHandler cgi-script .py
 	
-Example 000-default.conf with the comments removed:
+Here is what the whole `000-default.conf` file should look like (with the #comments removed):
 
 	<VirtualHost *:80>
 	<Directory /var/www/html>
@@ -81,6 +82,11 @@ Example 000-default.conf with the comments removed:
 Now restart the Apache2 service again
 
 	sudo service apache2 restart
+
+Now `cd` to the directory where you cloned this repo (Multi-Tier-App-Demo) and run the `sitebuild.sh` script
+
+	cd Multi-Tier-App-Demo/
+	sudo bash sitebuild.sh
 
 ## MySQL Server Installation 
 ## (On a separate server from the web server)
