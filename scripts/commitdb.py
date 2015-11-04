@@ -12,8 +12,8 @@ print 'Content-type: text/html\n\n'
 import pymysql
 conn = pymysql.connect(
     db='appdemo',
-    user='root',
-    passwd='Labserver1',
+    user='appdemo',
+    passwd='appdemo',
     host='localhost')
 c = conn.cursor()
 

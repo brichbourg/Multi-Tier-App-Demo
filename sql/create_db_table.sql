@@ -15,3 +15,6 @@ CREATE TABLE `demodata_erase_log` (
 PRIMARY KEY (`id`),
 KEY (`timestamp`)
 );
+
+CREATE USER 'appdemo'@'%' IDENTIFIED BY 'appdemo';
+GRANT ALL PRIVILEGES ON *.* to 'appdemo'@'%' WITH GRANT OPTION;
