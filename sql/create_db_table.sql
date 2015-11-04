@@ -17,4 +17,4 @@ KEY (`timestamp`)
 );
 
 CREATE USER 'appdemo'@'%' IDENTIFIED BY 'appdemo';
-GRANT ALL PRIVILEGES ON *.* to 'appdemo'@'%' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON appdemo.* to 'appdemo'@'%' WITH GRANT OPTION;

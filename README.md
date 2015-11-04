@@ -88,6 +88,7 @@ Now `cd` to the directory where you cloned this repo (Multi-Tier-App-Demo) and r
 	cd Multi-Tier-App-Demo/
 	sudo bash sitebuild.sh
 
+
 ## MySQL Server Installation 
 ## (On a separate server from the web server)
 
@@ -111,7 +112,7 @@ NOTE: The example below assumes you ran the wget command from your home director
 
 	mysql> source ~/create_db_table.sql;
 
-Here is the SQL code being injected
+Here is the SQL code being injected:
 
 
 	CREATE DATABASE `appdemo`;
@@ -131,6 +132,9 @@ Here is the SQL code being injected
 	PRIMARY KEY (`id`),
 	KEY (`timestamp`)
 	);
+
+	CREATE USER 'appdemo'@'%' IDENTIFIED BY 'appdemo';
+	GRANT ALL PRIVILEGES ON appdemo.* to 'appdemo'@'%' WITH GRANT OPTION;
 
 Edit `/etc/mysql/my.cnf` to allow for network connections.  Use VI or NANO to edit and change `bind-address = 127.0.0.1` to the IP address of your server.
 	
@@ -158,9 +162,34 @@ To verify MySQL was configured correct, use netstat -l.  You should see your [se
 	tcp6       0      0 [::]:ssh                [::]:*                  LISTEN  
 
 
-##Usage
+## Final Web Server Configuration
 
+Now that we are done configuring the MySQL server, there is one last thing that we need to do in order to get our application working.  To make this easy for people, I've coded the application to use a `/etc/hosts` entry to connect to the MySQL server.  Instead of changing the code (which you can if you would rather), I have just hard coded the Python scripts to connect to `dbserver-appdemo`.
 
+You need to edit your `/etc/hosts` files and add an entry to point to the IP address of **your** MySQL server.
 
+	
+	192.168.1.100       dbserver-appdemo
+
+Now you just need to replace the logo `logo.jpg` to the directory `/var/www/html/appdemo` so you have a picture at the top of your app if you don't like the one I provided.
+
+##Screenshots
+
+I think that you will find using this application to be pretty self explanatory, so instead of describing everything, I decided to include some screenshots so people can see what it looks like.
+
+###Main Menu: 
+![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Main Menu")
+
+###Enter Data: 
+![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Enter Data")
+
+###Commit Data 
+![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Commit Data")
+
+###View Data
+![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "View Data")
+
+###Erase Data
+![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Erase Data")
 
 

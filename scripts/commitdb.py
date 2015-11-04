@@ -14,7 +14,7 @@ conn = pymysql.connect(
     db='appdemo',
     user='appdemo',
     passwd='appdemo',
-    host='localhost')
+    host='dbserver-appdemo')
 c = conn.cursor()
 
 
