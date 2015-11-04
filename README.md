@@ -1,4 +1,4 @@
-# Demo Tiered Web Application
+# Multi Tiered Web Application 
 
 Version 0.1 
 
@@ -132,7 +132,7 @@ Here is the SQL code being injected
 	KEY (`timestamp`)
 	);
 
-Edit /etc/mysql/my.cnf to allow for network connections.  Use VI or NANO to edit and change bind-address = 127.0.0.1 to the IP address of your server.
+Edit `/etc/mysql/my.cnf` to allow for network connections.  Use VI or NANO to edit and change `bind-address = 127.0.0.1` to the IP address of your server.
 	
 	sudo nano /etc/mysql/my.cnf
 	.
