@@ -92,6 +92,7 @@ Install MySQL
 ***Make sure you create and remember your MySQL root password!
 
 Download the initial SQL file
+
 	wget "https://raw.githubusercontent.com/brichbourg/Multi-Tier-App-Demo/master/sql/create_db_table.sql"
 
 Now log into your MySQL server as root:
