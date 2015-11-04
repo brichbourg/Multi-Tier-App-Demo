@@ -126,6 +126,32 @@ Here is the SQL code being injected
 	KEY (`timestamp`)
 	);
 
+Edit /etc/mysql/my.cnf to allow for network connections.  Use VI or NANO to edit and change bind-address = 127.0.0.1 to the IP address of your server.
+	
+	sudo nano /etc/mysql/my.cnf
+	.
+	.
+	.
+	<output omitted>
+	.
+	.
+	.
+	bind-address	=192.168.0.100
+
+Restart MySQL
+
+	sudo service mysql restart
+
+To verify MySQL was configured correct, use netstat -l.  You should see your [serverip]:mysql or [serverip]:3306
+
+	brichbourg@db-1:~$ netstat -l
+	Active Internet connections (only servers)
+	Proto Recv-Q Send-Q Local Address           Foreign Address         State      
+	tcp        0      0 *:ssh                   *:*                     LISTEN     
+	tcp        0      0 192.168.0.100:mysql     *:*                     LISTEN     
+	tcp6       0      0 [::]:ssh                [::]:*                  LISTEN  
+
+
 ##Usage
 
 
