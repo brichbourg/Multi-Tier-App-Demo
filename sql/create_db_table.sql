@@ -15,8 +15,3 @@ CREATE TABLE `demodata_erase_log` (
 PRIMARY KEY (`id`),
 KEY (`timestamp`)
 );
-
--- put some initial data into the table
---INSERT INTO demodata VALUES ('','Brantley', 'This a test!','2015-01-01 12:00:00');
--- test table
---select * from demodata;

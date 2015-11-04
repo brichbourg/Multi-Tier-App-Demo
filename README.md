@@ -82,7 +82,8 @@ Now restart the Apache2 service again
 
 	sudo service apache2 restart
 
-## MySQL Server Installation (On a separate server from the web server)
+## MySQL Server Installation 
+## (On a separate server from the web server)
 
 Install MySQL
 	
@@ -90,12 +91,21 @@ Install MySQL
 
 ***Make sure you create and remember your MySQL root password!
 
+Download the initial SQL file
+	wget "https://raw.githubusercontent.com/brichbourg/Multi-Tier-App-Demo/master/sql/create_db_table.sql"
+
 Now log into your MySQL server as root:
 
 	mysql -u root -p
 	<enter your root password>
 
-Copy and paste the follow SQL into the command line:
+Run this command 
+NOTE: The example below assumes you ran the wget command from your home directory.  Modify as needed.
+
+	mysql> source ~/create_db_table.sql;
+
+Here is the SQL code being injected
+
 
 	CREATE DATABASE `appdemo`;
 	USE `appdemo`;
