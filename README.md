@@ -1,7 +1,5 @@
 # Multi Tiered Web Application 
 
-Version 0.1 
-
 ##Author:
 
 Brantley Richbourg (brichbourg@gmail.com)
@@ -25,9 +23,29 @@ Here are the versions of the systems I used when creating it:
 
 NOTE: These instructions are to be used on "clean" server installations.  Use with existing Apache2 and MySQL systems as your own risk!!!
 
-## Web Server Build
+##Screenshots
 
-###Software Installation
+I think that you will find using this application to be pretty self explanatory, so instead of describing everything, I decided to include some screenshots so people can see what it looks like.
+
+###Main Menu: 
+![alt text](https://raw.githubusercontent.com/brichbourg/Multi-Tier-App-Demo/master/screenshots/mainmenu.png "Main Menu")
+
+###Enter Data: 
+![alt text](https://raw.githubusercontent.com/brichbourg/Multi-Tier-App-Demo/master/screenshots/enterdata.png "Enter Data")
+
+###Commit Data 
+![alt text](https://raw.githubusercontent.com/brichbourg/Multi-Tier-App-Demo/master/screenshots/commitdata.png "Commit Data")
+
+###View Data
+![alt text](https://raw.githubusercontent.com/brichbourg/Multi-Tier-App-Demo/master/screenshots/viewdata.png "View Data")
+
+###Erase Data
+![alt text](https://raw.githubusercontent.com/brichbourg/Multi-Tier-App-Demo/master/screenshots/cleardata.png "Erase Data")
+
+
+## Installation Instructions
+
+###Web/App Server Installation
 
 Clone this repo somewhere to your server
 
@@ -46,7 +64,7 @@ Install Python Packages
 
 	sudo pip install pymysql
 
-###Server Modifications
+Run the following commands to make some changes to how Apache operates.
 
 	sudo a2dismod mpm_event
 	sudo a2enmod mpm_prefork cgi
@@ -89,8 +107,9 @@ Now `cd` to the directory where you cloned this repo (Multi-Tier-App-Demo) and r
 	sudo bash sitebuild.sh
 
 
-## MySQL Server Installation 
-## (On a separate server from the web server)
+### MySQL Server Installation 
+
+This going to be on a separate server from your web/app server.
 
 Install MySQL
 	
@@ -162,7 +181,7 @@ To verify MySQL was configured correct, use netstat -l.  You should see your [se
 	tcp6       0      0 [::]:ssh                [::]:*                  LISTEN  
 
 
-## Final Web Server Configuration
+### Final Web Server Configuration
 
 Now that we are done configuring the MySQL server, there is one last thing that we need to do in order to get our application working.  To make this easy for people, I've coded the application to use a `/etc/hosts` entry to connect to the MySQL server.  Instead of changing the code (which you can if you would rather), I have just hard coded the Python scripts to connect to `dbserver-appdemo`.
 
@@ -173,23 +192,5 @@ You need to edit your `/etc/hosts` files and add an entry to point to the IP add
 
 Now you just need to replace the logo `logo.jpg` to the directory `/var/www/html/appdemo` so you have a picture at the top of your app if you don't like the one I provided.
 
-##Screenshots
-
-I think that you will find using this application to be pretty self explanatory, so instead of describing everything, I decided to include some screenshots so people can see what it looks like.
-
-###Main Menu: 
-![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Main Menu")
-
-###Enter Data: 
-![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Enter Data")
-
-###Commit Data 
-![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Commit Data")
-
-###View Data
-![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "View Data")
-
-###Erase Data
-![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Erase Data")
 
 
