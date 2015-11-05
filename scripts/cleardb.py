@@ -25,7 +25,7 @@ import index
 usercommand = 'nothing_entered'
 form = cgi.FieldStorage()
 
-print form, ':FROM THE THE FORM (DEBUG)' #db
+print form, ':(DEBUG): VALUE RECEIVED FROM THE FORM ' #db
 
 if form.getvalue('command') == None:
 	arg1 = 'null'
