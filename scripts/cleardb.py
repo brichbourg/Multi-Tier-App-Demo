@@ -1,6 +1,7 @@
 #!/usr/bin/python
 from datetime import datetime
 import cgi
+import appsitefunctions
 
 # Turn on debug mode.
 import cgitb
@@ -18,14 +19,16 @@ conn = pymysql.connect(
     host='dbserver-appdemo')
 c = conn.cursor()
 
-#This will import the index.py script to print the main menu, etc.  Did this so I did not have to rewrite for this script.
-import index
+#This will call the fucntion to loab the base.html file for the site.
+modulename = None #This needs to be used when we are not using the index.py script.  This is for loading the 'custom mode' which is not needed here.
+appsitefunctions.loadbasehtml(modulename)
+
 
 #process the data from the HTML form and check to see if data was entered.
 usercommand = 'nothing_entered'
 form = cgi.FieldStorage()
 
-print form, ':(DEBUG): VALUE RECEIVED FROM THE FORM ' #db
+# print form, ':(DEBUG): VALUE RECEIVED FROM THE FORM ' #db
 
 if form.getvalue('command') == None:
 	arg1 = 'null'
@@ -53,18 +56,14 @@ if usercommand == 'ERASE':
 	# Checks to see if the anything other than 1 is returned from c.execute() function calls
 	if deleteresult == 0:
 		if recreateresult == 0:
-			print '<br><h3>Data Erased From Database!</h3>'
+			print '<br><center><h3>Data Erased From Database!</center></h3>'
 	else:
-		print '<br><h3>There was an error deleting the information to the database</h3>'
+		print '<br><center><h3>There was an error deleting the information to the database</h3></center>'
 
 	conn.commit()
 else:
 	# print 'else statement' #debug
-	print '<br><center><font color="red">Data NOT Cleared.  Incorrect command entered.</font></center>'
+	print '<br><center><font color="red">Data NOT Cleared.  No command or incorrect command was entered.</font></center>'
 
 print '</center>'
-
-# print '</body>'
-# print '\n'
-# print '</html>'
 

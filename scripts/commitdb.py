@@ -1,6 +1,9 @@
 #!/usr/bin/python
 from datetime import datetime
 import cgi
+import os.path
+import appsitefunctions
+
 # Turn on debug mode.
 import cgitb
 cgitb.enable()
@@ -17,38 +20,13 @@ conn = pymysql.connect(
     host='dbserver-appdemo')
 c = conn.cursor()
 
-
-# Brantley's Code
-print '<html>'
-print '<head>'
-print '<title>Brantley\'s Python Web Script </title>'
-print '</head>'
-print '\n'
-print '<body>'
-
-#Here is just some pretty stuff
-print '<center>'
-print '<IMG SRC="logo.jpg"></IMG>'
-print '<h1> Multi-Tier Application Example </h1>'
-print '<h3> Commit Data </h3>'
-print '</center>'
-
-
-print '\n'
-print '<center>'
-
-#menu
-print '<center>'
-print '<table border="10" bgcolor="#71bf45">'
-
-print '<tr>'
-print '<td><br><center><form action="index.html"><input type="submit" value="Main Menu"></center></form></td>'
-print '</tr>'
-print '</table>'
-print '</center>'
+#This will call the fucntion to loab the base.html file for the site.
+modulename = None #This needs to be used when we are not using the index.py script.  This is for loading the 'custom mode' which is not needed here.
+appsitefunctions.loadbasehtml(modulename)
 
 #process the data from the HTML form
 form = cgi.FieldStorage()
+# print form, ":(DEBUG) FORM VALUE" #db
 arg1 = form.getvalue('name')
 arg2 = form.getvalue('notes')
 arg3 = form.getvalue('count')
@@ -72,17 +50,12 @@ while arg3int > 0:
 # Checks to see if the anything other than 1 is returned from c.execute()
 if result == 1:
 	if numofrecords == 1:
-		print '<br><h3>Saved %s Record to Database!</h3>' %numofrecords
+		print '<br><center><h3>Saved %s Record to Database!</h3></center>' %numofrecords
 	else:
-		print '<br><h3>Saved %s Records to Database!</h3>' %numofrecords
+		print '<br><center><h3>Saved %s Records to Database!</h3></center>' %numofrecords
 else:
 	print '<h3>There was an error commiting the information to the database</h3>'
 
 
 
 print '</center>'
-
-print '</body>'
-print '\n'
-print '</html>'
-
