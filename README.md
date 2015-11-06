@@ -72,11 +72,11 @@ Run the following commands to make some changes to how Apache operates.
 
 Edit the `/etc/apache2/sites-enabled/000-default.conf` file with vi or nano (or whatever editor you like)
 
-Insert the following changes to 000-default.conf under `<VirtualHost *:80>`
+Insert the following changes to 000-default.conf under `<VirtualHost *:80>`.  Notice that you are adding Python as a CGI handler AND you are changed the default directory index to index.py instead of index.html.
 
 	<Directory /var/www/html>
 	        Options +ExecCGI
-	        DirectoryIndex index.html
+	        DirectoryIndex index.py
 	</Directory>
 	AddHandler cgi-script .py
 	
@@ -85,7 +85,7 @@ Here is what the whole `000-default.conf` file should look like (with the #comme
 	<VirtualHost *:80>
 	<Directory /var/www/html>
     		Options +ExecCGI
-    		DirectoryIndex index.html
+    		DirectoryIndex index.py
 	</Directory>
 	AddHandler cgi-script .py
 
