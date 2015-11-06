@@ -7,9 +7,6 @@ import appsitefunctions
 import cgitb
 cgitb.enable()
 
-# # Print necessary headers.
-# print 'Content-type: text/html\n\n'
-
 # Connect to the database.
 import pymysql
 conn = pymysql.connect(
@@ -28,8 +25,6 @@ appsitefunctions.loadbasehtml(modulename)
 usercommand = 'nothing_entered'
 form = cgi.FieldStorage()
 
-# print form, ':(DEBUG): VALUE RECEIVED FROM THE FORM ' #db
-
 if form.getvalue('command') == None:
 	arg1 = 'null'
 else:
@@ -44,7 +39,6 @@ forsql_datetime = "\'" + currentdatetime + "\'"
 if usercommand == 'ERASE':
 
 	deletetable = "DROP TABLE  demodata"
-	# print deletetable, ' :--deletetabel<br><br>' #debug
 	recreatetable = "CREATE TABLE `demodata` (`id` INTEGER NOT NULL AUTO_INCREMENT,`name` VARCHAR(100),`notes` TEXT,`timestamp` TIMESTAMP,PRIMARY KEY (`id`),KEY (`name`));"
 	logdelete = "INSERT INTO demodata_erase_log VALUES(\'\',"+forsql_datetime+")"
 
@@ -62,7 +56,6 @@ if usercommand == 'ERASE':
 
 	conn.commit()
 else:
-	# print 'else statement' #debug
 	print '<br><center><font color="red">Data NOT Cleared.  No command or incorrect command was entered.</font></center>'
 
 print '</center>'

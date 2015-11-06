@@ -1,5 +1,7 @@
 #!/usr/bin/python
 
+#This is a "modlue" script, which I mean that appsitefunctions.loadbasehtml() uses this to create a section of the site.
+
 print '<!-- Start of form -->'
 print '<center>'
 print '<table>'

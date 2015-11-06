@@ -1,4 +1,5 @@
 #!/usr/bin/python
+
 from datetime import datetime
 import cgi
 import os.path
@@ -7,9 +8,6 @@ import appsitefunctions
 # Turn on debug mode.
 import cgitb
 cgitb.enable()
-
-# Print necessary headers.
-print 'Content-type: text/html\n\n'
 
 # Connect to the database.
 import pymysql
@@ -26,7 +24,6 @@ appsitefunctions.loadbasehtml(modulename)
 
 #process the data from the HTML form
 form = cgi.FieldStorage()
-# print form, ":(DEBUG) FORM VALUE" #db
 arg1 = form.getvalue('name')
 arg2 = form.getvalue('notes')
 arg3 = form.getvalue('count')

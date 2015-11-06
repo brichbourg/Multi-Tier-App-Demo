@@ -41,10 +41,11 @@
 <!-- <br> -->
 <table border="10" bgcolor="#71bf45">
 <tr>
-<!-- <td><br/><center><form action="index.py"><input type="submit" value="Main Menu"></center></form></td> -->
-<td><br><center><a href="index.py?module=viewdb">View Data</a><form action="index.py?module=viewdb"><input type="submit" value="View Data"></center></form></td>
-<td><br><center><a href="index.py?module=enterdb">Enter Data</a><form action="index.py?module=enterdb"><input type="submit" value="Enter Data"></center></form></td>
-<td><br><center><a href="index.py?module=resetdb">Clear Data</a><form action="index.py?module=resetdb"><input type="submit" value="Clear Data"></center></form></td>
+<td><br><center><form action="index.py"><input type="hidden" name="module" value="viewdb"><input type="submit" value="View Data"></form></center></form></td>
+<td><br><center><form action="index.py"><input type="hidden" name="module" value="enterdb"><input type="submit" value="Enter Data"></form></center></form></td>
+<td><br><center><form action="index.py"><input type="hidden" name="module" value="resetdb"><input type="submit" value="Clear Data"></form></center></form></td>
+<!-- <td><br><center><a href="index.py?module=enterdb">Enter Data</a><form action="index.py?module=enterdb"><input type="submit" value="Enter Data"></center></form></td>
+<td><br><center><a href="index.py?module=resetdb">Clear Data</a><form action="index.py?module=resetdb"><input type="submit" value="Clear Data"></center></form></td> -->
 </tr>
 </table>
 </center>

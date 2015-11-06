@@ -1,5 +1,7 @@
 #!/usr/bin/python
 
+#This is a "modlue" script, which I mean that appsitefunctions.loadbasehtml() uses this to create a section of the site.
+
 # Turn on debug mode.
 import cgitb
 cgitb.enable()

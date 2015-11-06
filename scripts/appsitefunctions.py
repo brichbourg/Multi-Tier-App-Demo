@@ -12,6 +12,7 @@ def loadbasehtml(modulename):
 		basehtml = open('base.html').read().splitlines()
 
 		print 'Content-type: text/html\n\n'
+
 		for each in basehtml: 
 
 			#This print the local web server information
@@ -25,21 +26,13 @@ def loadbasehtml(modulename):
 					module = __import__(modulename)	
 
 			print each
+		
 
 		
 
 			
 	else:
 		print 'ERROR: Base HTML file ', os.path.realpath('base.html'), 'is missing'
-
-
-# def main():
-# 	#this was for debugging only
-# 	# name=None
-# 	# loadbasehtml(name)
-
-# if __name__ == "__main__":
-# 	main()
 
 
 				
