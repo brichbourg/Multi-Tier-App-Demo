@@ -179,7 +179,7 @@ To verify MySQL was configured correct, use netstat -l.  You should see your [se
 	Active Internet connections (only servers)
 	Proto Recv-Q Send-Q Local Address           Foreign Address         State      
 	tcp        0      0 *:ssh                   *:*                     LISTEN     
-	tcp        0      0 192.168.0.100:mysql     *:*                     LISTEN     
+	tcp        0      0 *:mysql     *:*                     LISTEN     
 	tcp6       0      0 [::]:ssh                [::]:*                  LISTEN  
 
 
