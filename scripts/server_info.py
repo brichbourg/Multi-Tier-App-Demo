@@ -31,18 +31,17 @@ def getserverinfo(param_name):
 
 	return None
 	
-#This was the first attempt to get the IP address of the host.  It uses actual TCP traffic, so I am going to leave this in the code in case there are issues with using the OS ENVIRONMENT variables (like for multiNIC systems).
+
 #This code establishes a TCP connection to the backend MySQL server to get the host's IP address.  This assumes the user has modified /etc/hosts as per the README
 #If the MySQL severs is on the same host at the web server, then this will display whatever value you entered into /etc/hosts for dbserver-appdemo
-# sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-# sock.connect(("dbserver-appdemo",3306))
-# ipaddress=(sock.getsockname()[0])
-# sock.close()
+sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+sock.connect(("dbserver-appdemo",3306))
+ipaddress=(sock.getsockname()[0])
+sock.close()
 
 #This get the hostname as defined in /etc/hostname
 hostname = (socket.gethostname())
 #Use OS environment variables gather information
-servername = getserverinfo('SERVER_ADDR')
 serverprotocol = getserverinfo('SERVER_PROTOCOL')
 serverport = getserverinfo('SERVER_PORT')
 
@@ -52,7 +51,7 @@ serverport = getserverinfo('SERVER_PORT')
 
 #This prints the HTML portion needed when this scripts is imported into another script printing HTML code.
 print '<tr><td align="right">Web Server:</td><td>%s<br></td></tr>'%hostname
-print '<tr><td align="right">IPv4:</td><td>%s<br></td></tr>' %servername
+print '<tr><td align="right">IPv4:</td><td>%s<br></td></tr>' %ipaddress
 print '<tr><td align="right">Protocol: </td><td>%s</font><br></td></tr>'%serverprotocol
 print '<tr><td align="right">Port: </td><td>%s</font><br></td></tr>'%serverport
 
