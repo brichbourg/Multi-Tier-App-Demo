@@ -79,6 +79,8 @@ Insert the following changes to 000-default.conf under `<VirtualHost *:80>`.  No
 	        DirectoryIndex index.py
 	</Directory>
 	AddHandler cgi-script .py
+
+Change the default `DocumentRoot /var/www/html` to `DocumentRoot /var/www/html/appdemo`.  If you don't want to do this, you can always leave it out and access the app via `http://serveraddress/appdemo` if you would rather do that.
 	
 Here is what the whole `000-default.conf` file should look like (with the #comments removed):
 
@@ -90,7 +92,7 @@ Here is what the whole `000-default.conf` file should look like (with the #comme
 	AddHandler cgi-script .py
 
 	ServerAdmin webmaster@localhost
-	DocumentRoot /var/www/html
+	DocumentRoot /var/www/html/appdemo
 
 	ErrorLog ${APACHE_LOG_DIR}/error.log
 	CustomLog ${APACHE_LOG_DIR}/access.log combined
@@ -155,7 +157,7 @@ Here is the SQL code being injected:
 	CREATE USER 'appdemo'@'%' IDENTIFIED BY 'appdemo';
 	GRANT ALL PRIVILEGES ON appdemo.* to 'appdemo'@'%' WITH GRANT OPTION;
 
-Edit `/etc/mysql/my.cnf` to allow for network connections.  Use VI or NANO to edit and change `bind-address = 127.0.0.1` to the IP address of your server.
+Edit `/etc/mysql/my.cnf` to allow for network connections.  Use VI or NANO to edit and change `bind-address = 127.0.0.1` to `bind-address = *`.  This will tell MySQL to listen for connections on port TCP:3306 on all interfaces.
 	
 	sudo nano /etc/mysql/my.cnf
 	.
@@ -165,7 +167,7 @@ Edit `/etc/mysql/my.cnf` to allow for network connections.  Use VI or NANO to ed
 	.
 	.
 	.
-	bind-address	=192.168.0.100
+	bind-address	= *
 
 Restart MySQL
 
