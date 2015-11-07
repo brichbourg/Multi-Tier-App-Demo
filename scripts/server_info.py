@@ -42,7 +42,7 @@ sock.close()
 #This get the hostname as defined in /etc/hostname
 hostname = (socket.gethostname())
 #Use OS environment variables gather information
-serverprotocol = getserverinfo('SERVER_PROTOCOL')
+serverprotocol = str.upper(getserverinfo('REQUEST_SCHEME'))
 serverport = getserverinfo('SERVER_PORT')
 
 #IF YOU WANT TO FIGURE OUT WHAT VARIABLES CAN BE USED, UNCOMMENT THE NEXT LINE TO ADD OTHER INFORMATION AND REFRESH THE WEBPAGE
@@ -54,7 +54,7 @@ print '<tr><td align="right">Web Server:</td><td>%s<br></td></tr>'%hostname
 print '<tr><td align="right">IPv4:</td><td>%s<br></td></tr>' %ipaddress
 print '<tr><td align="right">Protocol: </td><td>%s</font><br></td></tr>'%serverprotocol
 print '<tr><td align="right">Port: </td><td>%s</font><br></td></tr>'%serverport
-print '<tr><td align="right">Application Version:</td><td>0.3.1</font><br></td></tr></font>'
+print '<tr><td align="right">Application Version:</td><td>0.3.2</font><br></td></tr></font>'
 
 
 
