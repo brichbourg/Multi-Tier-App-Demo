@@ -56,13 +56,13 @@ protocol_color = setcolor(serverprotocol)
 serverport = getserverinfo('SERVER_PORT')
 
 #IF YOU WANT TO FIGURE OUT WHAT VARIABLES CAN BE USED, UNCOMMENT THE NEXT LINE TO ADD OTHER INFORMATION AND REFRESH THE WEBPAGE
-#cgi.test() 
+# cgi.test() 
 
 
 #This prints the HTML portion needed when this scripts is imported into another script printing HTML code.
 print '<tr><td align="right">Web Server:</td><td>%s<br></td></tr>'%hostname
 print '<tr><td align="right">IPv4:</td><td>%s<br></td></tr>' %ipaddress
-print '<tr><td align="right">Protocol: </td><td><font color=\"%s\">%s</font><br></td></tr>'% (protocol_color, serverprotocol)
+print '<tr><td align="right">Protocol: </td><td><B><font color=\"%s\">%s</font></B><br></td></tr>'% (protocol_color, serverprotocol)
 print '<tr><td align="right">Port: </td><td>%s</font><br></td></tr>'%serverport
 print '<tr><td align="right">Application Version:</td><td>0.3.3</font><br></td></tr></font>'
 
