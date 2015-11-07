@@ -31,6 +31,14 @@ def getserverinfo(param_name):
 
 	return None
 	
+def setcolor(protocolvalue):
+	if protocolvalue == 'HTTP':
+		return 'red'
+	elif protocolvalue == 'HTTPS':
+		return 'green'
+	else:
+		return 'black'
+
 
 #This code establishes a TCP connection to the backend MySQL server to get the host's IP address.  This assumes the user has modified /etc/hosts as per the README
 #If the MySQL severs is on the same host at the web server, then this will display whatever value you entered into /etc/hosts for dbserver-appdemo
@@ -43,6 +51,8 @@ sock.close()
 hostname = (socket.gethostname())
 #Use OS environment variables gather information
 serverprotocol = str.upper(getserverinfo('REQUEST_SCHEME'))
+# serverprotocol = 'HTTPS'
+protocol_color = setcolor(serverprotocol)
 serverport = getserverinfo('SERVER_PORT')
 
 #IF YOU WANT TO FIGURE OUT WHAT VARIABLES CAN BE USED, UNCOMMENT THE NEXT LINE TO ADD OTHER INFORMATION AND REFRESH THE WEBPAGE
@@ -52,9 +62,9 @@ serverport = getserverinfo('SERVER_PORT')
 #This prints the HTML portion needed when this scripts is imported into another script printing HTML code.
 print '<tr><td align="right">Web Server:</td><td>%s<br></td></tr>'%hostname
 print '<tr><td align="right">IPv4:</td><td>%s<br></td></tr>' %ipaddress
-print '<tr><td align="right">Protocol: </td><td>%s</font><br></td></tr>'%serverprotocol
+print '<tr><td align="right">Protocol: </td><td><font color=\"%s\">%s</font><br></td></tr>'% (protocol_color, serverprotocol)
 print '<tr><td align="right">Port: </td><td>%s</font><br></td></tr>'%serverport
-print '<tr><td align="right">Application Version:</td><td>0.3.2</font><br></td></tr></font>'
+print '<tr><td align="right">Application Version:</td><td>0.3.3</font><br></td></tr></font>'
 
 
 
