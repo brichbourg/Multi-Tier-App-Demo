@@ -37,7 +37,7 @@ while arg3int > 0:
 	forsql_notes = "\'" + arg2 + "\'"
 	currentdatetime = str(datetime.now())
 	forsql_datetime = "\'" + currentdatetime + "\'"
-	sqlstring = "INSERT INTO demodata VALUES(\'\',"+forsql_name+","+forsql_notes+","+forsql_datetime+")"
+	sqlstring = "INSERT INTO demodata VALUES(0,"+forsql_name+","+forsql_notes+","+forsql_datetime+")"
 	
 	#Saves data to MySQL database
 	result = c.execute(sqlstring)

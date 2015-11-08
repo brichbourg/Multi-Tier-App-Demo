@@ -64,7 +64,7 @@ print '<tr><td align="right">Web Server:</td><td>%s<br></td></tr>'%hostname
 print '<tr><td align="right">IPv4:</td><td>%s<br></td></tr>' %ipaddress
 print '<tr><td align="right">Protocol: </td><td><B><font color=\"%s\">%s</font></B><br></td></tr>'% (protocol_color, serverprotocol)
 print '<tr><td align="right">Port: </td><td>%s</font><br></td></tr>'%serverport
-print '<tr><td align="right">Application Version:</td><td>0.3.3</font><br></td></tr></font>'
+print '<tr><td align="right">Application Version:</td><td>0.3.4</font><br></td></tr></font>'
 
 
 
