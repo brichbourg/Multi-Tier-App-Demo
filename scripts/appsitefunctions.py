@@ -113,6 +113,7 @@ def printsite(modulename):
 				#This gets and sets the values for the app server 
 
 				appserverdata = urllib.urlopen('http://appserver-appdemo/appserverinfo.py')
+				print appserverdata
 
 				
 			#This will call the script to generate the contents or the page that is unique.
