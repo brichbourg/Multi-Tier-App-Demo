@@ -80,9 +80,9 @@ def printserverinfo(hostname,ipaddress,webprotocol,serverport):
 	protocol_color = setcolor(webprotocol)
 	print '<tr><td align="right">Hostname:</td><td>%s<br></td></tr>'%hostname
 	print '<tr><td align="right">IPv4:</td><td>%s<br></td></tr>' %ipaddress
-	print '<tr><td align="right">Protocol: </td><td><B><font color=\"%s\">%s</font></B><br></td></tr>'% (protocol_color, webprotocol)
-	print '<tr><td align="right">Port: </td><td>%s</font><br></td></tr>'%serverport
-	print '<tr><td align="right">Application Version:</td><td>0.4.0 BETA</font><br></td></tr></font>'
+	print '<tr><td align="right">Protocol: </td><td><B><font color=\"%s\">%s</B><br></td></tr>'% (protocol_color, webprotocol)
+	print '<tr><td align="right">Port: </td><td>%s<br></td></tr>'%serverport
+	print '<tr><td align="right">Application Version:</td><td>0.4.0 BETA<br></td></tr></font>'
 
 	
 def printsite(modulename):
@@ -112,8 +112,9 @@ def printsite(modulename):
 			if each == '<!-- StartAppServerInfo -->':
 				#This gets and sets the values for the app server 
 
-				appserverdata = urllib.urlopen('http://appserver-appdemo/appserverinfo.py')
-				print appserverdata
+				appserverresponse = urllib.urlopen('http://appserver-appdemo/appserverinfo.py')
+				appserverhtml = appserverresponse.read()
+				print appserverhtml
 
 				
 			#This will call the script to generate the contents or the page that is unique.
