@@ -3,65 +3,70 @@
 <html>
 
 <head>
-<title>Multi-Tier Web App</title>
+<title>Multi-Tier Web Application</title>
 </head>
 
 <body>
 
-
 <center>
-<table>
-<tr>
-<td>
 <IMG SRC="logo.jpg"></IMG>
-</td>
-<td> 
-
-<table border="1">
-<!-- DO NOT DELETE THE LINE BELOW! -->
-<!-- StartWebServerInfo -->
-
-<!-- This is a placeholder for some scripts that generate local server information-->
-
-<!-- EndWebServerInfo -->
-</table>
-<table border="1">
-<!-- DO NOT DELETE THE LINE BELOW! -->
-<!-- StartAppServerInfo -->
-
-<!-- This is a placeholder for some scripts that generate local server information-->
-
-<!-- EndAppServerInfo -->
-</table>
-</td>
-</tr>
-</table>
-
-<h1> Multi-Tier Application Example </h1>
-
+<h2>Multi-Tier Web Application</h2>
 </center>
 
 <center>
-<table border="0" bgcolor="white">
-<tr>
-<td><br><center><form action="index.py"><input type="submit" value="Main Menu"></center></form></td>
-</tr>
-</table>
-
 <table border="10" bgcolor="#71bf45">
 <tr>
 <td><br><center><form action="index.py"><input type="hidden" name="module" value="viewdb"><input type="submit" value="View Data"></form></center></form></td>
 <td><br><center><form action="index.py"><input type="hidden" name="module" value="enterdb"><input type="submit" value="Enter Data"></form></center></form></td>
 <td><br><center><form action="index.py"><input type="hidden" name="module" value="resetdb"><input type="submit" value="Clear Data"></form></center></form></td>
+<td><br><center><form action="index.py"><input type="hidden" name="module"><input type="submit" value="Clear Page"></form></center></form></td>
 </tr>
 </table>
 </center>
+
+<br>
+
+<center>
+<!-- main server info table --> <table border="10"><tr><td>
+
+<table border="0"><!-- web server table -->
+<tr><!-- web server table -->
+<td colspan="2"><!-- web server table -->
+<center><b>Web Server Info</b></center>
+</td><!-- web server table -->
+</tr><!-- web server table -->
+
+<!-- DO NOT DELETE THE LINE BELOW! -->
+<!-- StartWebServerInfo -->
+<!-- This is a placeholder for some scripts that generate local server information-->
+
+</table><!-- web server table -->
+
+<!-- main server info table --> </td><td>
+
+<table border="0"> <!-- app server table -->
+<tr><!-- app server table -->
+<td colspan="2"><!-- app server table -->
+<center><b>App Server Info</b></center>
+</td><!-- app server table -->
+</tr><!-- app server table -->
+
+<!-- DO NOT DELETE THE LINE BELOW! -->
+<!-- StartAppServerInfo -->
+<!-- This is a placeholder for some scripts that generate local server information-->
+
+</table> <!-- app server table -->
+
+<!-- main server info table --> </td></tr></table>
+
+
 <!-- DO NOT DELETE THE LINE BELOW! -->
 <!-- StartCustom -->
 
 <!-- Code that will print here will will be from the imported Python scripts -->
 
 <!-- EndCustom -->
+</center>
 
 </body>
 </html>

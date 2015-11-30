@@ -53,9 +53,24 @@ def finddnsresolver():
 	return None
 
 def removehtmlheaders(htmlcode):
-	#put some code here: remove first 7 lines and the last 3
-	print htmlcode
-	noheaderhtml = htmlcode #just a placeholder until the code is written
+	#This function is designed to remove the HTML headers that are adder so that Apache on the APP server will not give a 500 error due to bad headers.
+	splitcode = htmlcode.split('\n')
+
+	#Delete the first 7 elements in the list.  This is the first section of generic HTML code to be removed.
+	deletecount = 7
+	while deletecount > 0:
+		del splitcode[0]
+		deletecount-=1
+	
+	#Delete the last 5 elements in the list.  This is the last section of generic HTML code to be removed.
+	listposition = int(len(splitcode) - 1)
+	deletecount = 5
+	while deletecount > 0:
+		del splitcode[listposition]
+		listposition -=1
+		deletecount-=1
+
+	noheaderhtml = '\n'.join(splitcode)
 	return noheaderhtml
 
 def getserverinfo():
@@ -119,7 +134,7 @@ def printsite(modulename):
 
 				appserverresponse = urllib.urlopen('http://appserver-appdemo/appserverinfo.py')
 				appserverhtml = removehtmlheaders(appserverresponse.read())
-				# print appserverhtml
+				print appserverhtml
 
 				
 			#This will call the script to generate the contents or the page that is unique.
