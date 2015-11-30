@@ -13,4 +13,4 @@ modulename = form.getvalue('module')
 # print form, "<!-- (DEBUG) -->"
 
 #This will call the fucntion to loab the base.html file for the site.
-appsitefunctions.loadbasehtml(modulename)
+appsitefunctions.printsite(modulename)
