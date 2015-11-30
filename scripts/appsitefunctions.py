@@ -95,14 +95,21 @@ def getserverinfo():
 	#IF YOU WANT TO FIGURE OUT WHAT VARIABLES CAN BE USED, UNCOMMENT THE NEXT LINE TO ADD OTHER INFORMATION AND REFRESH THE WEBPAGE
 	# cgi.test() 
 	
-def printserverinfo(hostname,ipaddress,webprotocol,serverport):
+def printserverinfo(hostname,ipaddress,webprotocol,serverport, printblank):
 
-	protocol_color = setcolor(webprotocol)
-	print '<tr><td align="right">Hostname:</td><td>%s<br></td></tr>'%hostname
-	print '<tr><td align="right">IPv4:</td><td>%s<br></td></tr>' %ipaddress
-	print '<tr><td align="right">Protocol: </td><td><B><font color=\"%s\">%s</B><br></td></tr>'% (protocol_color, webprotocol)
-	print '<tr><td align="right">Port: </td><td>%s<br></td></tr>'%serverport
-	# print '<tr><td align="right">Application Version:</td><td>0.4.0 BETA<br></td></tr></font>'
+	if printblank == False:
+		protocol_color = setcolor(webprotocol)
+		print '<tr><td align="right">Hostname:</td><td>%s<br></td></tr>'%hostname
+		print '<tr><td align="right">IPv4:</td><td>%s<br></td></tr>' %ipaddress
+		print '<tr><td align="right">Protocol: </td><td><B><font color=\"%s\">%s</B><br></td></tr>'% (protocol_color, webprotocol)
+		print '<tr><td align="right">Port: </td><td>%s<br></td></tr>'%serverport
+		print '<tr><td align="right">Application Version:</td><td>0.4.0<br></td></tr></font>'
+	else:
+		print '<tr><td align="right">Hostname:</td><td>N/A <br></td></tr>'
+		print '<tr><td align="right">IPv4:</td><td>N/A<br></td></tr>' 
+		print '<tr><td align="right">Protocol: </td><td><B><font color=\"black\">N/A</B><br></td></tr>'
+		print '<tr><td align="right">Port: </td><td>N/A<br></td></tr>'
+		print '<tr><td align="right">Application Version:</td><td>0.4.0<br></td></tr></font>'
 
 	
 def printsite(modulename):
@@ -126,15 +133,18 @@ def printsite(modulename):
 				port = servervalues[3]
 				
 				#This will print that infomation for the HTML table in base.html
-				printserverinfo(host,ipaddress,webprotocol,port)
+				printserverinfo(host,ipaddress,webprotocol,port,False)
 
 			#This print the local web server information
 			if each == '<!-- StartAppServerInfo -->':
 				#This gets and sets the values for the app server 
 
-				appserverresponse = urllib.urlopen('http://appserver-appdemo/appserverinfo.py')
-				appserverhtml = removehtmlheaders(appserverresponse.read())
-				print appserverhtml
+				if modulename == None:
+					printserverinfo(host,ipaddress,webprotocol,port,True)
+				else:
+					appserverresponse = urllib.urlopen('http://appserver-appdemo/appserverinfo.py')
+					appserverhtml = removehtmlheaders(appserverresponse.read())
+					print appserverhtml
 
 				
 			#This will call the script to generate the contents or the page that is unique.
