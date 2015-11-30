@@ -3,10 +3,11 @@ import os.path
 import cgi
 import socket
 import os
+import urllib
 
 # Turn on debug mode.
 import cgitb
-cgitb.enable()
+#cgitb.enable()
 
 def getserverparam(param_name):
 
@@ -62,10 +63,14 @@ def getserverinfo():
 	#This get the hostname as defined in /etc/hostname
 	hostname = (socket.gethostname())
 	#Use OS environment variables gather information
-	serverprotocol = str.upper(getserverparam('REQUEST_SCHEME'))
 	serverport = getserverparam('SERVER_PORT')
-
-	return (hostname,ipaddress,serverprotocol,serverport)
+	if getserverparam('REQUEST_SCHEME') != None:  
+		serverprotocol = str.upper(getserverparam('REQUEST_SCHEME'))
+	
+		return (hostname,ipaddress,serverprotocol,serverport)
+	else:
+		serverprotocol = 'Unknown'
+		return (hostname,ipaddress,serverprotocol,serverport)
 
 	#IF YOU WANT TO FIGURE OUT WHAT VARIABLES CAN BE USED, UNCOMMENT THE NEXT LINE TO ADD OTHER INFORMATION AND REFRESH THE WEBPAGE
 	# cgi.test() 
@@ -92,20 +97,23 @@ def printsite(modulename):
 
 			#This print the local web server information
 			if each == '<!-- StartWebServerInfo -->':
+
 				#This gets and sets the values for the web server
 				servervalues = getserverinfo()
 				host = servervalues[0]
 				ipaddress = servervalues[1]
 				webprotocol = servervalues[2]
 				port = servervalues[3]
-			
+				
+				#This will print that infomation for the HTML table in base.html
 				printserverinfo(host,ipaddress,webprotocol,port)
 
 			#This print the local web server information
 			if each == '<!-- StartAppServerInfo -->':
 				#This gets and sets the values for the app server 
 
-				appserverdata = "placeholder for URL call to app server"
+				appserverdata = urllib.urlopen('http://appserver-appdemo/appserverinfo.py')
+
 				
 			#This will call the script to generate the contents or the page that is unique.
 			if each == '<!-- StartCustom -->':
