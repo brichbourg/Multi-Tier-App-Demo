@@ -18,16 +18,12 @@ port = servervalues[3]
 print '''
 <Content-type: text/html\\n\\n>
 <html>
-
 <head>
 <title>Multi-Tier Web App</title>
 </head>
-
 <body>
-
 <table border="1">
 '''
-
 appsitefunctions.printserverinfo(host,ipaddress,webprotocol,port)
 
 print '''
