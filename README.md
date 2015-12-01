@@ -229,10 +229,10 @@ Now that we are done configuring the MySQL server, there is one last thing that 
 You need to edit your `/etc/hosts` files and add an entry to point to the IP address of **YOUR** App Server and MySQL server.  If you IP addresses are entered incorrectly here, the app will not function correctly.
 
 * On the Web Server add this to `/etc/hosts`:
-		192.168.1.101	appserver-appdemo
+			192.168.1.101	appserver-appdemo
 
 * On the App Server add this to `/etc/hosts`:
-		192.168.1.102	dbserver-appdemo
+			192.168.1.102	dbserver-appdemo
 
 Now you just need to replace the logo `logo.jpg` to the directory `/var/www/html/appdemo` so you have a picture at the top of your app if you don't like the one I provided.
 
