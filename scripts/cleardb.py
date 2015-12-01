@@ -18,7 +18,7 @@ c = conn.cursor()
 
 #This will call the fucntion to loab the base.html file for the site.
 modulename = None #This needs to be used when we are not using the index.py script.  This is for loading the 'custom mode' which is not needed here.
-appsitefunctions.loadbasehtml(modulename)
+appsitefunctions.printsite(modulename)
 
 
 #process the data from the HTML form and check to see if data was entered.

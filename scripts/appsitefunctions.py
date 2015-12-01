@@ -95,6 +95,29 @@ def getserverinfo():
 	#IF YOU WANT TO FIGURE OUT WHAT VARIABLES CAN BE USED, UNCOMMENT THE NEXT LINE TO ADD OTHER INFORMATION AND REFRESH THE WEBPAGE
 	# cgi.test() 
 	
+def enterdbformhtml():
+	
+	print '<center>'
+	print '<table>'
+	print '<tr>'
+	print '<td>'
+	print '<form action="commitdb-web.py" method="POST" id="usrform">'
+	print '  <b>Name:</b><br>'
+	print '  <input type="text" name="name" value="Mickey Mouse">'
+	print '  <br><br>'
+	print '  <b>Notes:</b><br>'
+	print '  <textarea rows="6" cols="50" name="notes" form="usrform">Hot Dog, Hot Dog, Hot Diggy Dog!</textarea>'
+	print '  <br><br>'
+	print '  <b>Number of records to create:</b><br>'
+	print '  <input type="number" name="count" min="1" max="1000" value="1">'
+	print '  <br><br>'
+	print '  <input type="submit" value="Submit">'
+	print '</form>'
+	print '</td>'
+	print '</tr>'
+	print '</table>'
+	print '</center>'
+
 def printserverinfo(hostname,ipaddress,webprotocol,serverport, printblank):
 
 	if printblank == False:
@@ -105,14 +128,14 @@ def printserverinfo(hostname,ipaddress,webprotocol,serverport, printblank):
 		print '<tr><td align="right">Port: </td><td>%s<br></td></tr>'%serverport
 		print '<tr><td align="right">Application Version:</td><td>0.4.0<br></td></tr></font>'
 	else:
-		print '<tr><td align="right">Hostname:</td><td>N/A <br></td></tr>'
-		print '<tr><td align="right">IPv4:</td><td>N/A<br></td></tr>' 
-		print '<tr><td align="right">Protocol: </td><td><B><font color=\"black\">N/A</B><br></td></tr>'
-		print '<tr><td align="right">Port: </td><td>N/A<br></td></tr>'
+		print '<tr><td align="right">Hostname:</td><td>---<br></td></tr>'
+		print '<tr><td align="right">IPv4:</td><td>---<br></td></tr>' 
+		print '<tr><td align="right">Protocol: </td><td><font color=\"black\">---<br></td></tr>'
+		print '<tr><td align="right">Port: </td><td>---<br></td></tr>'
 		print '<tr><td align="right">Application Version:</td><td>0.4.0<br></td></tr></font>'
 
 	
-def printsite(modulename):
+def printsite(modulename,formname,formnotes,formcount):
 
 	if os.path.exists('base.html'):
 		basehtml = open('base.html').read().splitlines()
@@ -120,7 +143,7 @@ def printsite(modulename):
 		print 'Content-type: text/html\n\n'
 
 		for each in basehtml: 
-			print each #This will print the line from base.html that is loaded into the FOR LOOP
+			print each #This will print the lines from base.html that is loaded into the FOR LOOP
 
 			#This print the local web server information
 			if each == '<!-- StartWebServerInfo -->':
@@ -142,18 +165,25 @@ def printsite(modulename):
 				if modulename == None:
 					printserverinfo(host,ipaddress,webprotocol,port,True)
 				else:
-					appserverresponse = urllib.urlopen('http://appserver-appdemo/appserverinfo.py')
+					appserverresponse = urllib.urlopen('http://appserver-appdemo:8080/appserverinfo.py')
 					appserverhtml = removehtmlheaders(appserverresponse.read())
 					print appserverhtml
 
-				
-			#This will call the script to generate the contents or the page that is unique.
 			if each == '<!-- StartCustom -->':
 				#This uses to value passed from the URL to basically set which .py script is used for this section.
 				if modulename != None:
-					module = __import__(modulename)	
-
-			
+					if modulename == 'enterdb':
+						print enterdbformhtml()
+					elif modulename == 'commitdb':
+						urlstr = 'http://appserver-appdemo:8080/commitdb-app.py?name=%s&notes=%s&count=%s'%(formname,formnotes,formcount)
+						appserverresponse = urllib.urlopen(urlstr)
+						appserverhtml = removehtmlheaders(appserverresponse.read())
+						print appserverhtml
+					else:
+						urlstr = 'http://appserver-appdemo:8080/%s.py'%modulename
+						appserverresponse = urllib.urlopen(urlstr)
+						appserverhtml = removehtmlheaders(appserverresponse.read())
+						print appserverhtml
 			
 		
 
