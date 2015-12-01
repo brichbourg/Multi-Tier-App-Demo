@@ -3,7 +3,6 @@
 from datetime import datetime
 import cgi
 import os.path
-import appsitefunctions
 
 # Turn on debug mode.
 import cgitb
@@ -17,10 +16,6 @@ conn = pymysql.connect(
     passwd='appdemo',
     host='dbserver-appdemo')
 c = conn.cursor()
-
-#This will call the fucntion to loab the base.html file for the site.
-modulename = None #This needs to be used when we are not using the index.py script.  This is for loading the 'custom mode' which is not needed here.
-appsitefunctions.loadbasehtml(modulename)
 
 #process the data from the HTML form
 form = cgi.FieldStorage()
@@ -44,6 +39,17 @@ while arg3int > 0:
 	conn.commit()
 	arg3int -=1
 
+#Start HTML print out, headers are printed so the Apache server on APP does not produce a malformed header 500 server error
+print '''
+<Content-type: text/html\\n\\n>
+<html>
+<head>
+<title>Multi-Tier Web App</title>
+</head>
+<body>
+<table border="1">
+'''
+
 # Checks to see if the anything other than 1 is returned from c.execute()
 if result == 1:
 	if numofrecords == 1:
@@ -53,6 +59,11 @@ if result == 1:
 else:
 	print '<h3>There was an error commiting the information to the database</h3>'
 
-
-
 print '</center>'
+
+#Finish printing headers 
+print '''
+</table>
+</body>
+</html>
+'''

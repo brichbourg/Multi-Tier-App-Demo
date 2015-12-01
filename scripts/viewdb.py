@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+
 #This is a "module" script, by which I mean that appsitefunctions.loadbasehtml() uses this to create a section of the site.
 
 # Turn on debug mode.
@@ -17,6 +18,17 @@ c = conn.cursor()
 			
 #Grab the table data from the database.
 c.execute("SELECT * FROM demodata")
+
+#Start HTML print out, headers are printed so the Apache server on APP does not produce a malformed header 500 server error
+print '''
+<Content-type: text/html\\n\\n>
+<html>
+<head>
+<title>Multi-Tier Web App</title>
+</head>
+<body>
+<table border="1">
+'''
 
 #Start printing the html for the header row
 print '<center><h3>View Data</h3></center>'
@@ -39,4 +51,11 @@ for each in c.fetchall():
 
 print '</table>'
 print '</center>'
+
+#Finish printing headers 
+print '''
+</table>
+</body>
+</html>
+'''
 

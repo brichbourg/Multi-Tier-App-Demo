@@ -1,7 +1,6 @@
 #!/usr/bin/python
 from datetime import datetime
 import cgi
-import appsitefunctions
 
 # Turn on debug mode.
 import cgitb
@@ -16,11 +15,6 @@ conn = pymysql.connect(
     host='dbserver-appdemo')
 c = conn.cursor()
 
-#This will call the fucntion to loab the base.html file for the site.
-modulename = None #This needs to be used when we are not using the index.py script.  This is for loading the 'custom mode' which is not needed here.
-appsitefunctions.loadbasehtml(modulename)
-
-
 #process the data from the HTML form and check to see if data was entered.
 usercommand = 'nothing_entered'
 form = cgi.FieldStorage()
@@ -34,6 +28,17 @@ else:
 #Used for the erase log
 currentdatetime = str(datetime.now())
 forsql_datetime = "\'" + currentdatetime + "\'"
+
+#Start HTML print out, headers are printed so the Apache server on APP does not produce a malformed header 500 server error
+print '''
+<Content-type: text/html\\n\\n>
+<html>
+<head>
+<title>Multi-Tier Web App</title>
+</head>
+<body>
+<table border="1">
+'''
 
 #Check the value of the string entered in the form and looks to see if the user entered the word "ERASE"
 if usercommand == 'ERASE':
@@ -60,3 +65,9 @@ else:
 
 print '</center>'
 
+#Finish printing headers 
+print '''
+</table>
+</body>
+</html>
+'''
