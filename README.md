@@ -63,7 +63,7 @@ I think that you will find using this application to be pretty self explanatory,
 
 * Install PIP
 
-	sudo apt-get install python-pip
+		sudo apt-get install python-pip
 
 * Install Python Packages
 
