@@ -3,7 +3,6 @@
 from datetime import datetime
 import cgi
 import os.path
-import appsitefunctions
 
 # Turn on debug mode.
 import cgitb
@@ -17,10 +16,6 @@ conn = pymysql.connect(
     passwd='appdemo',
     host='dbserver-appdemo')
 c = conn.cursor()
-
-#This will call the fucntion to loab the base.html file for the site.
-modulename = None #This needs to be used when we are not using the index.py script.  This is for loading the 'custom mode' which is not needed here.
-# appsitefunctions.printsite(modulename)
 
 #process the data from the HTML form
 form = cgi.FieldStorage()

@@ -118,6 +118,25 @@ def enterdbformhtml():
 	print '</table>'
 	print '</center>'
 
+def cleardbformhtml():
+
+	print '<!-- Start of form -->'
+	print '<center>'
+	print '<table>'
+	print '<tr>'
+	print '<td>'
+	print '<form action="cleardb-web.py" method="POST" id="usrform">'
+	print '  <b><br> Enter <font color="red">ERASE </font>to clear the database:</b><br>'
+	print '  <input type="text" name="command" value="">'
+	print '  <br><br>'
+	print '  <input type="submit" value="Submit">'
+	print '</form>'
+	print '</td>'
+	print '</tr>'
+	print '</table>'
+
+	print '</center>'
+
 def printserverinfo(hostname,ipaddress,webprotocol,serverport, printblank):
 
 	if printblank == False:
@@ -135,7 +154,7 @@ def printserverinfo(hostname,ipaddress,webprotocol,serverport, printblank):
 		print '<tr><td align="right">Application Version:</td><td>0.4.0<br></td></tr></font>'
 
 	
-def printsite(modulename,formname,formnotes,formcount):
+def printsite(modulename,formname_or_cmd,formnotes,formcount):
 
 	if os.path.exists('base.html'):
 		basehtml = open('base.html').read().splitlines()
@@ -173,9 +192,18 @@ def printsite(modulename,formname,formnotes,formcount):
 				#This uses to value passed from the URL to basically set which .py script is used for this section.
 				if modulename != None:
 					if modulename == 'enterdb':
-						print enterdbformhtml()
+						enterdbformhtml()
+					elif modulename == 'resetdb':
+						cleardbformhtml()
 					elif modulename == 'commitdb':
-						urlstr = 'http://appserver-appdemo:8080/commitdb-app.py?name=%s&notes=%s&count=%s'%(formname,formnotes,formcount)
+						#Here formname_or_cmd is used as the NAME which was entered into the form
+						urlstr = 'http://appserver-appdemo:8080/commitdb-app.py?name=%s&notes=%s&count=%s'%(formname_or_cmd,formnotes,formcount)
+						appserverresponse = urllib.urlopen(urlstr)
+						appserverhtml = removehtmlheaders(appserverresponse.read())
+						print appserverhtml
+					elif modulename == 'cleardb':
+						#Here formname_or_cmd is used as the COMMAND which was entered into the form
+						urlstr = 'http://appserver-appdemo:8080/cleardb-app.py?command=%s'%formname_or_cmd
 						appserverresponse = urllib.urlopen(urlstr)
 						appserverhtml = removehtmlheaders(appserverresponse.read())
 						print appserverhtml
