@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-from datetime import datetime
+import time
 import cgi
 import os.path
 
@@ -30,7 +30,7 @@ while arg3int > 0:
 	#this format the SQL state for the MySQL server
 	forsql_name = "\'" + arg1 + "\'"
 	forsql_notes = "\'" + arg2 + "\'"
-	currentdatetime = str(datetime.now())
+	currentdatetime = time.strftime("%Y-%m-%d %H:%M:%S")
 	forsql_datetime = "\'" + currentdatetime + "\'"
 	sqlstring = "INSERT INTO demodata VALUES(0,"+forsql_name+","+forsql_notes+","+forsql_datetime+")"
 	

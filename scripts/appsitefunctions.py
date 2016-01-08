@@ -4,6 +4,7 @@ import cgi
 import socket
 import os
 import urllib
+import time
 
 # Turn on debug mode.
 import cgitb
@@ -94,7 +95,8 @@ def getserverinfo():
 
 	#IF YOU WANT TO FIGURE OUT WHAT VARIABLES CAN BE USED, UNCOMMENT THE NEXT LINE TO ADD OTHER INFORMATION AND REFRESH THE WEBPAGE
 	# cgi.test() 
-	
+
+
 def enterdbformhtml():
 	
 	print '<center>'
@@ -139,19 +141,24 @@ def cleardbformhtml():
 
 def printserverinfo(hostname,ipaddress,webprotocol,serverport, printblank):
 
+	localtime = time.strftime("%Y-%m-%d %H:%M:%S")
+
+
 	if printblank == False:
 		protocol_color = setcolor(webprotocol)
 		print '<tr><td align="right">Hostname:</td><td>%s<br></td></tr>'%hostname
 		print '<tr><td align="right">IPv4:</td><td>%s<br></td></tr>' %ipaddress
+		print '<tr><td align="right">Local System Time:</td><td>%s<br></td></tr>' %localtime
 		print '<tr><td align="right">Protocol: </td><td><B><font color=\"%s\">%s</B><br></td></tr>'% (protocol_color, webprotocol)
 		print '<tr><td align="right">Port: </td><td>%s<br></td></tr>'%serverport
-		print '<tr><td align="right">Application Version:</td><td>0.4.0<br></td></tr></font>'
+		print '<tr><td align="right">Application Version:</td><td>0.4.1<br></td></tr></font>'
 	else:
 		print '<tr><td align="right">Hostname:</td><td>---<br></td></tr>'
 		print '<tr><td align="right">IPv4:</td><td>---<br></td></tr>' 
+		print '<tr><td align="right">Local System Time:</td><td>%s<br></td></tr>' %localtime
 		print '<tr><td align="right">Protocol: </td><td><font color=\"black\">---<br></td></tr>'
 		print '<tr><td align="right">Port: </td><td>---<br></td></tr>'
-		print '<tr><td align="right">Application Version:</td><td>0.4.0<br></td></tr></font>'
+		print '<tr><td align="right">Application Version:</td><td>0.4.1<br></td></tr></font>'
 
 	
 def printsite(modulename,formname_or_cmd,formnotes,formcount):
