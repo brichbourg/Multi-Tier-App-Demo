@@ -152,6 +152,12 @@ For the app server, **FOLLOW THE WEB SERVER DIRECTIONS ABOVE**, but make two cha
 
 This going to be on a separate server from your web/app server.
 
+* Install Dialog
+
+	This will be used for our Bash menu to control services on the virtual machine.
+
+		sudo apt-get install dialog
+
 * Install MySQL
 	
 		sudo apt-get install mysql-server
@@ -220,6 +226,31 @@ This going to be on a separate server from your web/app server.
 		tcp        0      0 *:ssh                   *:*                     LISTEN     
 		tcp        0      0 *:mysql     *:*                     LISTEN     
 		tcp6       0      0 [::]:ssh                [::]:*                  LISTEN  
+
+
+### Configure Bash Menus (Optional)
+
+Here we will configure the bash shell menu scripts that can be configured so that you can use a menu to start and stop services versus having to type them into the CLI manually.  The idea here is this makes demos go faster and smoother.  
+
+* Install Dialog
+
+	This will be used for our Bash menu to control services on the virtual machine.
+
+		sudo apt-get install dialog
+
+* Move Script File
+
+	You will need to copy the correct menu script *depending on the server you are configuring (Web, App or DB)*.  The following example uses the web server.  Note that when we copy it we also change the name and make it a hidden file.
+
+		cp menu_web.sh ~/.menu.sh
+
+	**REMEMBER THAT THE APP SERVER and DB SERVER HAVE DIFFERENT .SH SCRIPTS.  Modify accordingly!**
+
+* Edit ~/.profile
+
+	Now we need to edit the .bashrc file so that this menu will start automatically when the server boots up.
+
+	Add the following string at the end of the file `sudo bash ~/.menu.sh`.  I added sudo so it will prompt you for the root password after you log in.  Ubuntu doesn't allow (to my knowledge) a way to log directly into the system as the root user.
 
 
 ### Final Web/App Server Configuration
