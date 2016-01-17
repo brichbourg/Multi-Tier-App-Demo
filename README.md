@@ -152,12 +152,6 @@ For the app server, **FOLLOW THE WEB SERVER DIRECTIONS ABOVE**, but make two cha
 
 This going to be on a separate server from your web/app server.
 
-* Install Dialog
-
-	This will be used for our Bash menu to control services on the virtual machine.
-
-		sudo apt-get install dialog
-
 * Install MySQL
 	
 		sudo apt-get install mysql-server
