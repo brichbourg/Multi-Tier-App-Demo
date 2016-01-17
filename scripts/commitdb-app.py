@@ -4,6 +4,7 @@ import time
 import cgi
 import os.path
 
+
 # Turn on debug mode.
 import cgitb
 cgitb.enable()
@@ -20,7 +21,9 @@ c = conn.cursor()
 #process the data from the HTML form
 form = cgi.FieldStorage()
 arg1 = form.getvalue('name')
+arg1 = arg1.replace("'","\\'") #keeps single quotes from crashing the app because of the SQL statement
 arg2 = form.getvalue('notes')
+arg2 = arg2.replace("'","\\'") #keeps single quotes from crashing the app because of the SQL statement
 arg3 = form.getvalue('count')
 arg3int = int(arg3) 
 numofrecords = arg3int

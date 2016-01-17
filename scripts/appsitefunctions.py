@@ -151,14 +151,14 @@ def printserverinfo(hostname,ipaddress,webprotocol,serverport, printblank):
 		print '<tr><td align="right">Local System Time:</td><td>%s<br></td></tr>' %localtime
 		print '<tr><td align="right">Protocol: </td><td><B><font color=\"%s\">%s</B><br></td></tr>'% (protocol_color, webprotocol)
 		print '<tr><td align="right">Port: </td><td>%s<br></td></tr>'%serverport
-		print '<tr><td align="right">Application Version:</td><td>0.4.1<br></td></tr></font>'
+		print '<tr><td align="right">Application Version:</td><td>0.4.2<br></td></tr></font>'
 	else:
 		print '<tr><td align="right">Hostname:</td><td>---<br></td></tr>'
 		print '<tr><td align="right">IPv4:</td><td>---<br></td></tr>' 
 		print '<tr><td align="right">Local System Time:</td><td>%s<br></td></tr>' %localtime
 		print '<tr><td align="right">Protocol: </td><td><font color=\"black\">---<br></td></tr>'
 		print '<tr><td align="right">Port: </td><td>---<br></td></tr>'
-		print '<tr><td align="right">Application Version:</td><td>0.4.1<br></td></tr></font>'
+		print '<tr><td align="right">Application Version:</td><td>0.4.2<br></td></tr></font>'
 
 	
 def printsite(modulename,formname_or_cmd,formnotes,formcount):
