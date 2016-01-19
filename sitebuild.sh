@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo -e "We are going to copy the files over to Apache, press any key to continue, or CTRL-C to quit"
+echo -e "We are going to copy the files over to Apache, press ENTER key to continue, or CTRL-C to quit"
 read key
 sudo mkdir /var/www/html/appdemo
 sudo cp html/* /var/www/html/appdemo/
