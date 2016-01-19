@@ -250,7 +250,7 @@ Here we will configure the bash shell menu scripts that can be configured so tha
 
 * Edit ~/.profile
 
-	Now we need to edit the .bashrc file so that this menu will start automatically when the server boots up.
+	Now we need to edit the .profile file so that this menu will start automatically when the server boots up.
 
 	Add the following string at the end of the file `sudo bash ~/.menu.sh`.  I added sudo so it will prompt you for the root password after you log in.  Ubuntu doesn't allow (to my knowledge) a way to log directly into the system as the root user.
 
