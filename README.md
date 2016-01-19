@@ -52,6 +52,10 @@ I think that you will find using this application to be pretty self explanatory,
 
 ###Web Server Installation
 
+* Update Advanced Packaging Tool
+	
+		sudo apt-get update
+
 * Clone this repo somewhere to your server
 
 		sudo apt-get install git
@@ -151,6 +155,10 @@ For the app server, **FOLLOW THE WEB SERVER DIRECTIONS ABOVE**, but make two cha
 ### MySQL Server Installation 
 
 This going to be on a separate server from your web/app server.
+
+* Update Advanced Packaging Tool
+	
+		sudo apt-get update
 
 * Install MySQL
 	
