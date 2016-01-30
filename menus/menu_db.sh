@@ -1,6 +1,7 @@
 	
 #!/bin/bash
 # Bash Menu Script to use on the MTWA virtual machines to start and stop services during demos.
+# Copy to home folder and rename to .menu.sh
 ##!/bin/bash
 
 HEIGHT=15
@@ -30,19 +31,19 @@ case $CHOICE in
             sudo service mysql start
             sudo service mysql status
             read -p "Press any key to continue"
-            bash menu_db.sh
+            bash .menu.sh
             ;;
         2)
             echo "Stopping MySQL Server"
             sudo service mysql stop
             sudo service mysql status
             read -p "Press any key to continue"
-            bash menu_db.sh
+            bash .menu.sh
             ;;
         3)
             sudo service mysql status
             read -p "Press any key to continue"
-            bash menu_db.sh
+            bash .menu.sh
             ;;
         4)
             

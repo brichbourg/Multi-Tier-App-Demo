@@ -1,6 +1,7 @@
 	
 #!/bin/bash
 # Bash Menu Script to use on the MTWA virtual machines to start and stop services during demos.
+# Copy to home folder and rename to .menu.sh
 ##!/bin/bash
 
 HEIGHT=15
@@ -30,19 +31,19 @@ case $CHOICE in
             sudo service apache2 start
             sudo service apache2 status
             read -p "Press any key to continue"
-            bash menu_app.sh
+            bash .menu.sh
             ;;
         2)
             echo "Stopping Apache Server"
             sudo service apache2 stop
             sudo service apache2 status
             read -p "Press any key to continue"
-            bash menu_app.sh
+            bash .menu.sh
             ;;
         3)
             sudo service apache2 status
             read -p "Press any key to continue"
-            bash menu_app.sh
+            bash .menu.sh
             ;;
         4)
             
