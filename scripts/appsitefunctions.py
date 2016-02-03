@@ -13,25 +13,22 @@ import cgitb
 def getserverparam(param_name):
 
 	# print param_name, "param_name<BR>" #db
-
+    
 	for each in os.environ.keys():	
 		#Uncomment the next line if you want to see all of the values that could be used
-		# print (each, os.environ[each]), "<br>" #db
-		# print each, ":each <br>" #db
+		#print (each, os.environ[each]), "<br>" #db
+		#print each, ":each <br>" #db
 
 		each_value = os.environ[each]
-		# print each_value, ":each_value <BR>" #db
 
 		each_value_string = str(each_value)
-		# print each_value_string, "each_value_string<BR>" #db
 
 		each_string = str(each)
-		# print each_value_string, ":each_value_string <BR>" #db
 
 		if each_string == param_name:			
 			servervalue = each_value_string
-			# print servervalue, "servervalue<BR>" #db
 			return servervalue
+
 
 	return None
 	
@@ -83,8 +80,10 @@ def getserverinfo():
 
 	#This get the hostname as defined in /etc/hostname
 	hostname = (socket.gethostname())
+
 	#Use OS environment variables gather information
 	serverport = getserverparam('SERVER_PORT')
+	
 	if getserverparam('REQUEST_SCHEME') != None:  
 		serverprotocol = str.upper(getserverparam('REQUEST_SCHEME'))
 	
@@ -96,6 +95,15 @@ def getserverinfo():
 	#IF YOU WANT TO FIGURE OUT WHAT VARIABLES CAN BE USED, UNCOMMENT THE NEXT LINE TO ADD OTHER INFORMATION AND REFRESH THE WEBPAGE
 	# cgi.test() 
 
+def getclientinfo():
+	#Gathers client information
+	clientip = getserverparam('REMOTE_ADDR')
+	# print 'clientip', clientip #db
+	clientport = getserverparam('REMOTE_PORT')
+	# print 'clientport', clientport #db
+	x4ed4 = getserverparam('HTTP_X_FORWARDED_FOR')
+	# print 'x4ed4', x4ed4 #db
+	return (clientip,clientport,x4ed4)
 
 def enterdbformhtml():
 	
@@ -148,17 +156,17 @@ def printserverinfo(hostname,ipaddress,webprotocol,serverport, printblank):
 		protocol_color = setcolor(webprotocol)
 		print '<tr><td align="right">Hostname:</td><td>%s<br></td></tr>'%hostname
 		print '<tr><td align="right">IPv4:</td><td>%s<br></td></tr>' %ipaddress
-		print '<tr><td align="right">Local System Time:</td><td>%s<br></td></tr>' %localtime
 		print '<tr><td align="right">Protocol: </td><td><B><font color=\"%s\">%s</B><br></td></tr>'% (protocol_color, webprotocol)
 		print '<tr><td align="right">Port: </td><td>%s<br></td></tr>'%serverport
-		print '<tr><td align="right">Application Version:</td><td>0.4.2<br></td></tr></font>'
+		print '<tr><td align="right">Application Version:</td><td>0.4.3<br></td></tr></font>'
+		print '<tr><td align="right">Local System Time:</td><td>%s<br></td></tr>' %localtime
 	else:
 		print '<tr><td align="right">Hostname:</td><td>---<br></td></tr>'
-		print '<tr><td align="right">IPv4:</td><td>---<br></td></tr>' 
-		print '<tr><td align="right">Local System Time:</td><td>%s<br></td></tr>' %localtime
+		print '<tr><td align="right">IPv4:</td><td>---<br></td></tr>' 	
 		print '<tr><td align="right">Protocol: </td><td><font color=\"black\">---<br></td></tr>'
 		print '<tr><td align="right">Port: </td><td>---<br></td></tr>'
-		print '<tr><td align="right">Application Version:</td><td>0.4.2<br></td></tr></font>'
+		print '<tr><td align="right">Application Version:</td><td>0.4.3<br></td></tr></font>'
+		print '<tr><td align="right">Local System Time:</td><td>%s<br></td></tr>' %localtime
 
 	
 def printsite(modulename,formname_or_cmd,formnotes,formcount):
@@ -171,6 +179,21 @@ def printsite(modulename,formname_or_cmd,formnotes,formcount):
 		for each in basehtml: 
 			print each #This will print the lines from base.html that is loaded into the FOR LOOP
 
+			#This prints the client information
+
+			if each == '<!-- StartClientInfo -->':
+
+				clientvalues = getclientinfo()
+				clientipaddress = clientvalues[0]
+				clientportnum = clientvalues[1]
+				# print 'clientportnum', clientportnum #db
+				forwarded_for = clientvalues[2]
+				# print 'forwarded_for', forwarded_for #db
+
+				print '<tr><td align="right">IPv4:</td><td>%s<br></td></tr>' %clientipaddress
+				print '<tr><td align="right">Port:</td><td>%s<br></td></tr>' %clientportnum
+				print '<tr><td align="right">X_Forwarded_For:</td><td>%s<br></td></tr>' %forwarded_for
+
 			#This print the local web server information
 			if each == '<!-- StartWebServerInfo -->':
 
@@ -180,6 +203,7 @@ def printsite(modulename,formname_or_cmd,formnotes,formcount):
 				ipaddress = servervalues[1]
 				webprotocol = servervalues[2]
 				port = servervalues[3]
+				
 				
 				#This will print that infomation for the HTML table in base.html
 				printserverinfo(host,ipaddress,webprotocol,port,False)
