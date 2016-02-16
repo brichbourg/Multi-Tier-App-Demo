@@ -24,7 +24,7 @@ print '''
 <body>
 <table border="1">
 '''
-appsitefunctions.printserverinfo(host,ipaddress,webprotocol,port,False)
+appsitefunctions.printserverinfo(host,ipaddress,webprotocol,port)
 
 print '''
 </table>

@@ -10,6 +10,32 @@ import time
 import cgitb
 #cgitb.enable()
 
+def printappservererror():
+
+	print "<FONT COLOR='red'><H2>ERROR: APPLICATION SERVER UNAVAILABLE</H2></FONT>"
+
+def printdbservererror():
+
+	#Start HTML print out, headers are printed so the Apache server on APP does not produce a malformed header 500 server error
+	print '''
+	<Content-type: text/html\\n\\n>
+	<html>
+	<head>
+	<title></title>
+	</head>
+	<body>
+	<table border="1">
+	'''
+
+	print "<FONT COLOR='red'><H2>ERROR: DATABASE SERVER UNAVAILABLE</H2></FONT>"
+
+	#Finish printing headers 
+	print '''
+	</table>
+	</body>
+	</html>
+	'''
+
 def getserverparam(param_name):
 
 	# print param_name, "param_name<BR>" #db
@@ -147,26 +173,18 @@ def cleardbformhtml():
 
 	print '</center>'
 
-def printserverinfo(hostname,ipaddress,webprotocol,serverport, printblank):
+def printserverinfo(hostname,ipaddress,webprotocol,serverport):
 
 	localtime = time.strftime("%Y-%m-%d %H:%M:%S")
 
 
-	if printblank == False:
-		protocol_color = setcolor(webprotocol)
-		print '<tr><td align="right">Hostname:</td><td>%s<br></td></tr>'%hostname
-		print '<tr><td align="right">IPv4:</td><td>%s<br></td></tr>' %ipaddress
-		print '<tr><td align="right">Protocol: </td><td><B><font color=\"%s\">%s</B><br></td></tr>'% (protocol_color, webprotocol)
-		print '<tr><td align="right">Port: </td><td>%s<br></td></tr>'%serverport
-		print '<tr><td align="right">Application Version:</td><td>0.4.3<br></td></tr></font>'
-		print '<tr><td align="right">Local System Time:</td><td>%s<br></td></tr>' %localtime
-	else:
-		print '<tr><td align="right">Hostname:</td><td>---<br></td></tr>'
-		print '<tr><td align="right">IPv4:</td><td>---<br></td></tr>' 	
-		print '<tr><td align="right">Protocol: </td><td><font color=\"black\">---<br></td></tr>'
-		print '<tr><td align="right">Port: </td><td>---<br></td></tr>'
-		print '<tr><td align="right">Application Version:</td><td>0.4.3<br></td></tr></font>'
-		print '<tr><td align="right">Local System Time:</td><td>%s<br></td></tr>' %localtime
+	protocol_color = setcolor(webprotocol)
+	print '<tr><td align="right">Hostname:</td><td>%s<br></td></tr>'%hostname
+	print '<tr><td align="right">IPv4:</td><td>%s<br></td></tr>' %ipaddress
+	print '<tr><td align="right">Protocol: </td><td><B><font color=\"%s\">%s</B><br></td></tr>'% (protocol_color, webprotocol)
+	print '<tr><td align="right">Port: </td><td>%s<br></td></tr>'%serverport
+	print '<tr><td align="right">Application Version:</td><td>0.5.0<br></td></tr></font>'
+	print '<tr><td align="right">Local System Time:</td><td>%s<br></td></tr>' %localtime
 
 	
 def printsite(modulename,formname_or_cmd,formnotes,formcount):
@@ -206,18 +224,18 @@ def printsite(modulename,formname_or_cmd,formnotes,formcount):
 				
 				
 				#This will print that infomation for the HTML table in base.html
-				printserverinfo(host,ipaddress,webprotocol,port,False)
+				printserverinfo(host,ipaddress,webprotocol,port)
 
 			#This print the local web server information
 			if each == '<!-- StartAppServerInfo -->':
 				#This gets and sets the values for the app server 
 
-				if modulename == None:
-					printserverinfo(host,ipaddress,webprotocol,port,True)
-				else:
+				try:
 					appserverresponse = urllib.urlopen('http://appserver-appdemo:8080/appserverinfo.py')
 					appserverhtml = removehtmlheaders(appserverresponse.read())
 					print appserverhtml
+				except:
+					print '<table border="0"><tr><td>Hostname:</td><td><font color="red">ERROR</font><br></td></tr><tr><td>IPv4:</td><td><font color="red">ERROR</font><br></td></tr><tr><td>Protocol: </td><td><font color="red">ERROR</font><br></td></tr><tr><td>Port: </td><td><font color="red">ERROR</font><br></td></tr><tr><td>Application Version:</td><td><font color="red">ERROR</font><br></td></tr></font><tr><td>Local System Time:</td><td><font color="red">ERROR</font><br></td></tr></table>'
 
 			if each == '<!-- StartCustom -->':
 				#This uses to value passed from the URL to basically set which .py script is used for this section.
@@ -228,21 +246,31 @@ def printsite(modulename,formname_or_cmd,formnotes,formcount):
 						cleardbformhtml()
 					elif modulename == 'commitdb':
 						#Here formname_or_cmd is used as the NAME which was entered into the form
-						urlstr = 'http://appserver-appdemo:8080/commitdb-app.py?name=%s&notes=%s&count=%s'%(formname_or_cmd,formnotes,formcount)
-						appserverresponse = urllib.urlopen(urlstr)
-						appserverhtml = removehtmlheaders(appserverresponse.read())
-						print appserverhtml
+						try:
+							urlstr = 'http://appserver-appdemo:8080/commitdb-app.py?name=%s&notes=%s&count=%s'%(formname_or_cmd,formnotes,formcount)
+							appserverresponse = urllib.urlopen(urlstr)
+							appserverhtml = removehtmlheaders(appserverresponse.read())
+							print appserverhtml
+						except:
+							printappservererror()
+
 					elif modulename == 'cleardb':
 						#Here formname_or_cmd is used as the COMMAND which was entered into the form
-						urlstr = 'http://appserver-appdemo:8080/cleardb-app.py?command=%s'%formname_or_cmd
-						appserverresponse = urllib.urlopen(urlstr)
-						appserverhtml = removehtmlheaders(appserverresponse.read())
-						print appserverhtml
+						try:
+							urlstr = 'http://appserver-appdemo:8080/cleardb-app.py?command=%s'%formname_or_cmd
+							appserverresponse = urllib.urlopen(urlstr)
+							appserverhtml = removehtmlheaders(appserverresponse.read())
+							print appserverhtml
+						except:
+							printappservererror()
 					else:
-						urlstr = 'http://appserver-appdemo:8080/%s.py'%modulename
-						appserverresponse = urllib.urlopen(urlstr)
-						appserverhtml = removehtmlheaders(appserverresponse.read())
-						print appserverhtml
+						try:
+							urlstr = 'http://appserver-appdemo:8080/%s.py'%modulename
+							appserverresponse = urllib.urlopen(urlstr)
+							appserverhtml = removehtmlheaders(appserverresponse.read())
+							print appserverhtml
+						except:
+							printappservererror()
 			
 		
 
