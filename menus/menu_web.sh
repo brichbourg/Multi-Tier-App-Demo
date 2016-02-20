@@ -1,12 +1,11 @@
 	
 #!/bin/bash
 # Bash Menu Script to use on the MTWA virtual machines to start and stop services during demos.
-# Copy to home folder and rename to .menu.sh
 ##!/bin/bash
 
 HEIGHT=15
 WIDTH=40
-CHOICE_HEIGHT=4
+CHOICE_HEIGHT=8
 BACKTITLE="Multi-Tier Web Application"
 TITLE="Web Server Control Center"
 MENU="Choose one of the following options:"
@@ -14,7 +13,11 @@ MENU="Choose one of the following options:"
 OPTIONS=(1 "Start Apache"
          2 "Stop Apache"
          3 "Apache Server Status"
-         4 "Exit to CLI")
+         4 "Block HTTP (IPTABLES)"
+         5 "Block HTTPS (IPTABLES)"
+         6 "Clear IPTABLES"
+         7 "Show IPTABLES Rules"
+         8 "Exit to CLI")
 
 CHOICE=$(dialog --clear \
                 --backtitle "$BACKTITLE" \
@@ -46,6 +49,30 @@ case $CHOICE in
             bash .menu.sh
             ;;
         4)
+            echo "Blocking HTTP (IPTABLES)"
+            sudo iptables -A INPUT -p tcp --dport http -j DROP
+            read -p "Press any key to continue"
+            bash .menu.sh
+            ;;
+        5)
+            echo "Blocking HTTPS (IPTABLES)"
+            sudo iptables -A INPUT -p tcp --dport https -j DROP
+            read -p "Press any key to continue"
+            bash .menu.sh
+            ;;
+        6)
+            echo "Clearing IPTABLES rules"
+            sudo iptables -F
+            read -p "Press any key to continue"
+            bash .menu.sh
+            ;;
+        7)
+            echo "Showing IPTABLES rules"
+            sudo iptables -L
+            read -p "Press any key to continue"
+            bash .menu.sh
+            ;;
+        8)
             
             ;;
 esac
