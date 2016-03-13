@@ -230,6 +230,22 @@ This going to be on a separate server from your web/app server.
 		tcp6       0      0 [::]:ssh                [::]:*                  LISTEN  
 
 
+### Final Web/App Server Configuration
+
+Now that we are done configuring the MySQL server, there is one last thing that we need to do in order to get our application working.  To make this easy for people, I've coded the application to use a `/etc/hosts` entry to connect to the MySQL server.  Instead of changing the code (which you can if you would rather), I have just hard coded the Python scripts to connect to `dbserver-appdemo`.
+
+You need to edit your `/etc/hosts` files and add an entry to point to the IP address of **YOUR** App Server and MySQL server.  If you IP addresses are entered incorrectly here, the app will not function correctly.
+
+* On the Web Server add this to `/etc/hosts`:
+			
+			192.168.1.101	appserver-appdemo
+
+* On the App Server add this to `/etc/hosts`:
+			
+			192.168.1.102	dbserver-appdemo
+
+Now you just need to replace the logo `logo.jpg` to the directory `/var/www/html/appdemo` so you have a picture at the top of your app if you don't like the one I provided.
+
 ### Configure Bash Menus (Optional)
 
 Here we will configure the bash shell menu scripts that can be configured so that you can use a menu to start and stop services versus having to type them into the CLI manually.  The idea here is this makes demos go faster and smoother.  
@@ -254,22 +270,48 @@ Here we will configure the bash shell menu scripts that can be configured so tha
 
 	Add the following string at the end of the file `sudo bash ~/.menu.sh`.  I added sudo so it will prompt you for the root password after you log in.  Ubuntu doesn't allow (to my knowledge) a way to log directly into the system as the root user.
 
+### Configure SSL (Optional)
 
-### Final Web/App Server Configuration
+Thanks for Luis Chanu for working on SSL instructions!
 
-Now that we are done configuring the MySQL server, there is one last thing that we need to do in order to get our application working.  To make this easy for people, I've coded the application to use a `/etc/hosts` entry to connect to the MySQL server.  Instead of changing the code (which you can if you would rather), I have just hard coded the Python scripts to connect to `dbserver-appdemo`.
+* Enable SSL in Apache
 
-You need to edit your `/etc/hosts` files and add an entry to point to the IP address of **YOUR** App Server and MySQL server.  If you IP addresses are entered incorrectly here, the app will not function correctly.
+		sudo a2enmod ssl
+		sudo service apache2 restart
 
-* On the Web Server add this to `/etc/hosts`:
-			
-			192.168.1.101	appserver-appdemo
+* Create Self-Signed Certificate
+		
+		sudo mkdir /etc/apache2/ssl
+		sudo openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout /etc/apache2/ssl/apache.key -out /etc/apache2/ssl/apache.crt
 
-* On the App Server add this to `/etc/hosts`:
-			
-			192.168.1.102	dbserver-appdemo
+* Configure Apache SSL Site
 
-Now you just need to replace the logo `logo.jpg` to the directory `/var/www/html/appdemo` so you have a picture at the top of your app if you don't like the one I provided.
+		sudo vi /etc/apache2/sites-available/default-ssl.conf
+
+	Clear contents completely out and just make sure this is in the file.  You can change the server name and alias.
+
+		ServerName	Lab.Local
+		ServerAlias	Web.Lab.Local
+
+		DocumentRoot	/var/www/html/appdemo
+		<Directory	/var/www/html>
+			Options +ExecCGI
+			DirectoryIndex  index.py
+		</Directory>
+		AddHandler	cgi-script .py
+
+
+		SSLEngine on
+		SSLCertificateFile	/etc/apache2/ssl/apache.crt
+		SSLCertificateKeyFile	/etc/apache2/ssl/apache.key
+
+* Activate Virtual Host
+
+		sudo a2ensite default-ssl.conf
+		sudo service apache2 restart
+
+
+Now you can try to connect to HTTPS on this application.  
 
 
 
