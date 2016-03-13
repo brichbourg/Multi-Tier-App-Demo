@@ -183,7 +183,7 @@ def printserverinfo(hostname,ipaddress,webprotocol,serverport):
 	print '<tr><td align="right">IPv4:</td><td>%s<br></td></tr>' %ipaddress
 	print '<tr><td align="right">Protocol: </td><td><B><font color=\"%s\">%s</B><br></td></tr>'% (protocol_color, webprotocol)
 	print '<tr><td align="right">Port: </td><td>%s<br></td></tr>'%serverport
-	print '<tr><td align="right">Application Version:</td><td>0.5.0<br></td></tr></font>'
+	print '<tr><td align="right">Application Version:</td><td>0.5.1<br></td></tr></font>'
 	print '<tr><td align="right">Local System Time:</td><td>%s<br></td></tr>' %localtime
 
 	
@@ -194,42 +194,43 @@ def printsite(modulename,formname_or_cmd,formnotes,formcount):
 
 		print 'Content-type: text/html\n\n'
 
+		#This gets and sets the values for the server
+		clientvalues = getclientinfo()
+		clientipaddress = clientvalues[0]
+		clientportnum = clientvalues[1]
+		forwarded_for = clientvalues[2]
+		servervalues = getserverinfo()
+		host = servervalues[0]
+		ipaddress = servervalues[1]
+		webprotocol = servervalues[2]
+		port = servervalues[3]
+
 		for each in basehtml: 
 			print each #This will print the lines from base.html that is loaded into the FOR LOOP
 
-			#This prints the client information
+			#This prints the server information in the HTML title.
+			if each == '<!-- StartTitleInfo -->':
+
+				# print 'StartTitleInfo' #db
+				print '<title>%s / %s [%s]</title>'%(host,ipaddress,webprotocol)
 
 			if each == '<!-- StartClientInfo -->':
 
-				clientvalues = getclientinfo()
-				clientipaddress = clientvalues[0]
-				clientportnum = clientvalues[1]
-				# print 'clientportnum', clientportnum #db
-				forwarded_for = clientvalues[2]
-				# print 'forwarded_for', forwarded_for #db
-
+				#This will print the table row information for the client information table
 				print '<tr><td align="right">IPv4:</td><td>%s<br></td></tr>' %clientipaddress
 				print '<tr><td align="right">Port:</td><td>%s<br></td></tr>' %clientportnum
 				print '<tr><td align="right">X_Forwarded_For:</td><td>%s<br></td></tr>' %forwarded_for
 
 			#This print the local web server information
 			if each == '<!-- StartWebServerInfo -->':
-
-				#This gets and sets the values for the web server
-				servervalues = getserverinfo()
-				host = servervalues[0]
-				ipaddress = servervalues[1]
-				webprotocol = servervalues[2]
-				port = servervalues[3]
-				
 				
 				#This will print that infomation for the HTML table in base.html
 				printserverinfo(host,ipaddress,webprotocol,port)
 
 			#This print the local web server information
 			if each == '<!-- StartAppServerInfo -->':
-				#This gets and sets the values for the app server 
 
+				#This gets and sets the values for the app server 
 				try:
 					appserverresponse = urllib.urlopen('http://appserver-appdemo:8080/appserverinfo.py')
 					appserverhtml = removehtmlheaders(appserverresponse.read())
