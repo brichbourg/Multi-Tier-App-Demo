@@ -1,5 +1,4 @@
 # Multi Tiered Web Application 
-README for version 0.4.0
 
 ##Author:
 
@@ -282,7 +281,7 @@ Thanks for Luis Chanu for working on SSL instructions!
 * Create Self-Signed Certificate
 		
 		sudo mkdir /etc/apache2/ssl
-		sudo openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout /etc/apache2/ssl/apache.key -out /etc/apache2/ssl/apache.crt
+		udo openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -subj '/CN=Web.Lab.Local/C=US/ST=California/L=San Jose/O=Dimension Data/OU=Lab' -keyout /etc/apache2/ssl/apache.key -out /etc/apache2/ssl/apache.crt
 
 * Configure Apache SSL Site
 
