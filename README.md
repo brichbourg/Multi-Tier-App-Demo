@@ -29,22 +29,10 @@ NOTE: These instructions are to be used on "clean" server installations.  Use wi
 
 ##Screenshots
 
-I think that you will find using this application to be pretty self explanatory, so instead of describing everything, I decided to include some screenshots so people can see what it looks like.
+Here is a screenshot of the application.
 
 ###Main Menu: 
 ![alt text](https://raw.githubusercontent.com/brichbourg/Multi-Tier-App-Demo/master/screenshots/mainmenu.png "Main Menu")
-
-###Enter Data: 
-![alt text](https://raw.githubusercontent.com/brichbourg/Multi-Tier-App-Demo/master/screenshots/enterdata.png "Enter Data")
-
-###Commit Data 
-![alt text](https://raw.githubusercontent.com/brichbourg/Multi-Tier-App-Demo/master/screenshots/commitdata.png "Commit Data")
-
-###View Data
-![alt text](https://raw.githubusercontent.com/brichbourg/Multi-Tier-App-Demo/master/screenshots/viewdata.png "View Data")
-
-###Erase Data
-![alt text](https://raw.githubusercontent.com/brichbourg/Multi-Tier-App-Demo/master/screenshots/cleardata.png "Erase Data")
 
 
 ## Installation Instructions
