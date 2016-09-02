@@ -9,6 +9,10 @@ import os.path
 import cgitb
 cgitb.enable()
 
+#This section will grab the name of the app server host name from the mtwa.conf file
+servernames=appsitefunctions.importconfiguration() 
+dbServerHostname=servernames[1]
+
 # Connect to the database.
 import pymysql
 try:
@@ -16,7 +20,7 @@ try:
 	    db='appdemo',
 	    user='appdemo',
 	    passwd='appdemo',
-	    host='dbserver-appdemo')
+	    host=dbServerHostname)
 	c = conn.cursor()
 
 
