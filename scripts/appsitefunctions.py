@@ -8,7 +8,40 @@ import time
 
 # Turn on debug mode.
 import cgitb
-#cgitb.enable()
+cgitb.enable()
+
+#loads data from the mtwa.conf file to be used in the application
+def importconfiguration (): 
+	if os.path.exists('/etc/mtwa/mtwa.conf'):
+		mtwaconf = open('/etc/mtwa/mtwa.conf').read().splitlines()
+
+		for each in mtwaconf: 
+
+			if each == '#': #This skips lines that start with #, as they are comments
+				continue 
+			else:
+
+				if each[:13] == "AppServerName":
+					AppServerName = each[13:]
+
+					for char in AppServerName: #will remove the = and whitespace characters to return the DNS or IP addresses configred in mtwa.conf
+						AppServerName = AppServerName.lstrip()
+						AppServerName = AppServerName.lstrip("=")
+						AppServerName = AppServerName.rstrip()
+
+				if each[:12] == "DBServerName":
+					DBServerName = each[12:]
+
+					for char in DBServerName: #will remove the = and whitespace characters to return the DNS or IP addresses configred in mtwa.conf
+						DBServerName = DBServerName.lstrip()
+						DBServerName = DBServerName.lstrip("=")
+						DBServerName = DBServerName.rstrip()
+
+		return (AppServerName,DBServerName)
+
+
+	else:
+		print 'ERROR: MTWA Configuration file ', os.path.realpath('/etc/mtwa/mtwa.conf'), 'is missing!'
 
 def printappservererror():
 
@@ -183,7 +216,7 @@ def printserverinfo(hostname,ipaddress,webprotocol,serverport):
 	print '<tr><td align="right">IPv4:</td><td>%s<br></td></tr>' %ipaddress
 	print '<tr><td align="right">Protocol: </td><td><B><font color=\"%s\">%s</B><br></td></tr>'% (protocol_color, webprotocol)
 	print '<tr><td align="right">Port: </td><td>%s<br></td></tr>'%serverport
-	print '<tr><td align="right">Application Version:</td><td>0.5.1<br></td></tr></font>'
+	print '<tr><td align="right">Application Version:</td><td>0.6.0<br></td></tr></font>'
 	print '<tr><td align="right">Local System Time:</td><td>%s<br></td></tr>' %localtime
 
 	
@@ -205,9 +238,13 @@ def printsite(modulename,formname_or_cmd,formnotes,formcount):
 		webprotocol = servervalues[2]
 		port = servervalues[3]
 
+		#This section will grab the name of the app server host name from the mtwa.conf file
+		servernames=importconfiguration() 
+		AppServerHostname=servernames[0]
+
 		for each in basehtml: 
 			print each #This will print the lines from base.html that is loaded into the FOR LOOP
-
+			
 			#This prints the server information in the HTML title.
 			if each == '<!-- StartTitleInfo -->':
 
@@ -232,7 +269,7 @@ def printsite(modulename,formname_or_cmd,formnotes,formcount):
 
 				#This gets and sets the values for the app server 
 				try:
-					appserverresponse = urllib.urlopen('http://appserver-appdemo:8080/appserverinfo.py')
+					appserverresponse = urllib.urlopen('http://%s:8080/appserverinfo.py'%AppServerHostname)
 					appserverhtml = removehtmlheaders(appserverresponse.read())
 					print appserverhtml
 				except:
@@ -248,7 +285,7 @@ def printsite(modulename,formname_or_cmd,formnotes,formcount):
 					elif modulename == 'commitdb':
 						#Here formname_or_cmd is used as the NAME which was entered into the form
 						try:
-							urlstr = 'http://appserver-appdemo:8080/commitdb-app.py?name=%s&notes=%s&count=%s'%(formname_or_cmd,formnotes,formcount)
+							urlstr = 'http://%s:8080/commitdb-app.py?name=%s&notes=%s&count=%s'%(AppServerHostname,formname_or_cmd,formnotes,formcount)
 							appserverresponse = urllib.urlopen(urlstr)
 							appserverhtml = removehtmlheaders(appserverresponse.read())
 							print appserverhtml
@@ -258,7 +295,7 @@ def printsite(modulename,formname_or_cmd,formnotes,formcount):
 					elif modulename == 'cleardb':
 						#Here formname_or_cmd is used as the COMMAND which was entered into the form
 						try:
-							urlstr = 'http://appserver-appdemo:8080/cleardb-app.py?command=%s'%formname_or_cmd
+							urlstr = 'http://%s:8080/cleardb-app.py?command=%s'%(AppServerHostname,formname_or_cmd)
 							appserverresponse = urllib.urlopen(urlstr)
 							appserverhtml = removehtmlheaders(appserverresponse.read())
 							print appserverhtml
@@ -266,7 +303,7 @@ def printsite(modulename,formname_or_cmd,formnotes,formcount):
 							printappservererror()
 					else:
 						try:
-							urlstr = 'http://appserver-appdemo:8080/%s.py'%modulename
+							urlstr = 'http://%s:8080/%s.py'%(AppServerHostname,modulename)
 							appserverresponse = urllib.urlopen(urlstr)
 							appserverhtml = removehtmlheaders(appserverresponse.read())
 							print appserverhtml
