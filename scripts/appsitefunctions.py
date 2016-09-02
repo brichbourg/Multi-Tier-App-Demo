@@ -216,7 +216,7 @@ def printserverinfo(hostname,ipaddress,webprotocol,serverport):
 	print '<tr><td align="right">IPv4:</td><td>%s<br></td></tr>' %ipaddress
 	print '<tr><td align="right">Protocol: </td><td><B><font color=\"%s\">%s</B><br></td></tr>'% (protocol_color, webprotocol)
 	print '<tr><td align="right">Port: </td><td>%s<br></td></tr>'%serverport
-	print '<tr><td align="right">Application Version:</td><td>0.6.0<br></td></tr></font>'
+	print '<tr><td align="right">Application Version:</td><td>0.6.1<br></td></tr></font>'
 	print '<tr><td align="right">Local System Time:</td><td>%s<br></td></tr>' %localtime
 
 	
