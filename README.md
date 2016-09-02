@@ -37,7 +37,7 @@ Here is a screenshot of the application.
 
 ## Installation Instructions
 
-###Web Server Installation
+###Web Server Installation (Required)
 
 * Update Advanced Packaging Tool
 	
@@ -99,12 +99,12 @@ Here is a screenshot of the application.
 
 		sudo service apache2 restart
 
-* Now `cd` to the directory where you cloned this repo (Multi-Tier-App-Demo) and run the `sitebuild.sh` script
+* Now `cd` to the directory where you cloned this repo (Multi-Tier-App-Demo) and run the `install.sh` script
 
 		cd Multi-Tier-App-Demo/
-		sudo bash sitebuild.sh
+		sudo bash install.sh
 
-###App Server Installation
+###App Server Installation (Required)
 
 For the app server, **FOLLOW THE WEB SERVER DIRECTIONS ABOVE**, but make two changes to have Apache2 listen on port 8080 vs 80.
 
@@ -139,7 +139,7 @@ For the app server, **FOLLOW THE WEB SERVER DIRECTIONS ABOVE**, but make two cha
 
 		sudo service apache2 restart
 
-### MySQL Server Installation 
+### MySQL Server Installation (Required)
 
 This going to be on a separate server from your web/app server.
 
@@ -217,21 +217,22 @@ This going to be on a separate server from your web/app server.
 		tcp6       0      0 [::]:ssh                [::]:*                  LISTEN  
 
 
-### Final Web/App Server Configuration
+### Final Web/App Server Configuration (Required)
 
-Now that we are done configuring the MySQL server, there is one last thing that we need to do in order to get our application working.  To make this easy for people, I've coded the application to use a `/etc/hosts` entry to connect to the MySQL server.  Instead of changing the code (which you can if you would rather), I have just hard coded the Python scripts to connect to `dbserver-appdemo`.
+Make sure you have run the `install.sh` shell strip first, as that script will create and copy a configuration file needed for the application to run.
 
-You need to edit your `/etc/hosts` files and add an entry to point to the IP address of **YOUR** App Server and MySQL server.  If you IP addresses are entered incorrectly here, the app will not function correctly.
+You need to edit your `/etc/mtwa/mtwa.conf` file on all of the servers and change the name `appserver.company.com` and `dbserver.company.com` listed in that file to the DNS names or IP addresses of the servers or load balancers you are going
 
-* On the Web Server add this to `/etc/hosts`:
-			
-			192.168.1.101	appserver-appdemo
+Here is what the `/etc/mtwa/mtwa.conf` file looks like:
 
-* On the App Server add this to `/etc/hosts`:
-			
-			192.168.1.102	dbserver-appdemo
+	#Multi-Tier-App-Demo configuration file
 
-Now you just need to replace the logo `logo.jpg` to the directory `/var/www/html/appdemo` so you have a picture at the top of your app if you don't like the one I provided.
+	#Enter the name of the app server or load balancer (DNS or IP address; DNS preferred)
+	AppServerName = appserver.company.com
+	#Enter the name of the MySQL server (DNS or IP address; DNS preferred)
+	DBServerName = dbserver.company.com
+
+It is recommended that you use DNS if possible, but IP address should work too.
 
 ### Configure Bash Menus (Optional)
 
