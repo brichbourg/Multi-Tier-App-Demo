@@ -66,34 +66,10 @@ Here is a screenshot of the application.
 		sudo a2enmod mpm_prefork cgi
 		sudo service apache2 restart
 
-*	Edit the `/etc/apache2/sites-enabled/000-default.conf` file with vi or nano (or whatever editor you like)
+*	Run the following commands
 
-	Insert the following changes to 000-default.conf under `<VirtualHost *:80>`.  Notice that you are adding Python as a CGI handler AND you are changed the default directory index to index.py instead of index.html.
-
-			<Directory /var/www/html>
-		        Options +ExecCGI
-		        DirectoryIndex index.py
-			</Directory>	
-				AddHandler cgi-script .py
-
-* Change the default `DocumentRoot /var/www/html` to `DocumentRoot /var/www/html/appdemo`.  If you don't want to do this, you can always leave it out and access the app via `http://serveraddress/appdemo` if you would rather do that.
-	
-	Here is what the whole `000-default.conf` file should look like (with the #comments removed):
-
-		<VirtualHost *:80>
-		<Directory /var/www/html>
-	    		Options +ExecCGI
-	    		DirectoryIndex index.py
-		</Directory>
-		AddHandler cgi-script .py
-
-		ServerAdmin webmaster@localhost
-		DocumentRoot /var/www/html/appdemo
-
-		ErrorLog ${APACHE_LOG_DIR}/error.log
-		CustomLog ${APACHE_LOG_DIR}/access.log combined
-
-		</VirtualHost>
+		wget "https://s3.amazonaws.com/richbourg-s3/mtwa/web/000-default.conf"
+		sudo cp 000-default.conf /etc/apache2/sites-enabled/
 
 * Now restart the Apache2 service again
 
@@ -108,32 +84,12 @@ Here is a screenshot of the application.
 
 For the app server, **FOLLOW THE WEB SERVER DIRECTIONS ABOVE**, but make two changes to have Apache2 listen on port 8080 vs 80.
 
-* Edit `/etc/apache2/ports.conf`:	
-
-	Change `Listen 80` to `Listen 8080`
-
-	The file should look something like this:
-
-		brichbourg@mtwa-app-1:/etc/apache2$ cat ports.conf 
-		# If you just change the port or add more ports here, you will likely also
-		# have to change the VirtualHost statement in
-		# /etc/apache2/sites-enabled/000-default.conf
-
-		Listen 8080
-
-		<IfModule ssl_module>
-		        Listen 443
-		</IfModule>
-
-		<IfModule mod_gnutls.c>
-		        Listen 443
-		</IfModule>
-
-		# vim: syntax=apache ts=4 sw=4 sts=4 sr noet
-
-* Now edit the `/etc/apache2/sites-enabled/000-default.conf` again, but only one change needs to be made:
-
-	Change `<VirtualHost *:80>` to `<VirtualHost *:8080>`
+* Run the following commands:
+		
+		wget "https://s3.amazonaws.com/richbourg-s3/mtwa/app/ports.conf"
+		wget "https://s3.amazonaws.com/richbourg-s3/mtwa/app/000-default.conf"
+		sudo cp 000-default.conf /etc/apache2/sites-enabled/
+		sudo cp ports.conf /etc/apache2/
 
 * Restart Apache2
 
