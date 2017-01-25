@@ -42,6 +42,7 @@ Here is a screenshot of the application.
 * Update Advanced Packaging Tool
 	
 		sudo apt-get update
+		sudo apt-get dist-upgrade
 
 * Clone this repo somewhere to your server
 
@@ -69,7 +70,9 @@ Here is a screenshot of the application.
 *	Run the following commands
 
 		wget "https://s3.amazonaws.com/richbourg-s3/mtwa/web/000-default.conf"
+		wget "https://s3.amazonaws.com/richbourg-s3/mtwa/web/ports.conf"
 		sudo cp 000-default.conf /etc/apache2/sites-enabled/
+		sudo cp ports.conf /etc/apache2/
 
 * Now restart the Apache2 service again
 
