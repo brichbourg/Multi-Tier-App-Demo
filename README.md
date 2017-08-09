@@ -150,9 +150,9 @@ This going to be on a separate server from your web/app server.
 		CREATE USER 'appdemo'@'%' IDENTIFIED BY 'appdemo';
 		GRANT ALL PRIVILEGES ON appdemo.* to 'appdemo'@'%' WITH GRANT OPTION;
 
-* Edit `/etc/mysql/my.cnf` to allow for network connections.  Use VI or NANO to edit and change `bind-address = 127.0.0.1` to `bind-address = *`.  This will tell MySQL to listen for connections on port TCP:3306 on all interfaces.
+* Edit `/etc/mysql/mysql.conf.d/mysqld.cnf` to allow for network connections.  Use VI or NANO to edit and change `bind-address = 127.0.0.1` to `bind-address = *`.  This will tell MySQL to listen for connections on port TCP:3306 on all interfaces.
 	
-		sudo nano /etc/mysql/my.cnf
+		sudo nano /etc/mysql/mysql.conf.d/mysqld.cnf
 		.
 		.
 		.
